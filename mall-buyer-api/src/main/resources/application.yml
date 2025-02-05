@@ -5,6 +5,12 @@ spring:
     active: dev  # 本机开发环境
   main:
     allow-circular-references: true # 允许循环依赖
+  data: #reids配置
+    redis:
+      host: ${tiktok.redis.host}
+      port: ${tiktok.redis.port}
+      password: ${tiktok.redis.password}
+      database: ${tiktok.redis.database}
 
 server:
   port: ${tiktok.server.port} # tomcat启动端口号
