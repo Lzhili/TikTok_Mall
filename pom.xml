@@ -21,6 +21,8 @@
         <module>mall-interface</module>
         <module>mall-buyer-api</module>
         <module>testService</module>
+        <module>UserService</module>
+        <module>AuthService</module>
     </modules>
 
     <properties>

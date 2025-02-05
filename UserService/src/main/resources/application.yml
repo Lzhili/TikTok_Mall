@@ -1,6 +1,6 @@
 spring:
   application:
-    name: test-provider #服务器名称
+    name: user-provider #服务器名称
   profiles:
     active: dev  # 本机开发环境
   main:
@@ -38,7 +38,7 @@ dubbo: #dubbo配置
     base-packages: com.tiktok.service # 扫描后将该包下所有有注解的服务注册到注册中心
   application:
     qos-enable: true
-    qos-port: 33330
+    qos-port: 33331
     qos-accept-foreign-ip: false
     serialize-check-status: WARN
 

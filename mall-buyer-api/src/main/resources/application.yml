@@ -17,9 +17,9 @@ dubbo: #dubbo配置
     group: tiktok_mall_service # 设置zookeeper的根节点，不配置将使用默认的根节点
     enable-empty-protection: false #关闭推空保护
   application: # 解决qos-server启动报错， qos是Dubbo的在线运维命令，可以对服务进行动态的配置、控制及查询
-    qos-enable: true
-    qos-port: 33333
-    qos-accept-foreign-ip: false
+#    qos-enable: true
+#    qos-port: 33333
+#    qos-accept-foreign-ip: false
     serialize-check-status: WARN
 
 # 日志配置
