@@ -24,6 +24,7 @@
         <module>UserService</module>
         <module>AuthService</module>
         <module>CategoryService</module>
+        <module>AddressBookService</module>
     </modules>
 
     <properties>
