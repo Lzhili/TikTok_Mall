@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiktok.mapper.ProductMapper">
+
+    <select id="pageQuery" resultType="com.tiktok.vo.ProductVO">
+        select p.*, c.name as category_name from `tiktok-mall`.product p left join `tiktok-mall`.category c on p.category_id = c.id
+        <where>
+            <if test="name != null and name != ''">
+                and p.name like concat('%', #{name}, '%')
+            </if>
+            <if test="categoryId != null">
+                and p.category_id = #{categoryId}
+            </if>
+        </where>
+        order by p.create_time desc
+    </select>
+</mapper>

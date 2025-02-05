@@ -25,6 +25,7 @@
         <module>AuthService</module>
         <module>CategoryService</module>
         <module>AddressBookService</module>
+        <module>ProductService</module>
     </modules>
 
     <properties>
