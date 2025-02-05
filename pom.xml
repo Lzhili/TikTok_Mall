@@ -19,6 +19,8 @@
         <module>mall-common</module>
         <module>mall-pojo</module>
         <module>mall-interface</module>
+        <module>mall-buyer-api</module>
+        <module>testService</module>
     </modules>
 
     <properties>

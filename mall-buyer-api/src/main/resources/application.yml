@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: mall-buyer #服务器名称
+  profiles:
+    active: dev  # 本机开发环境
+  main:
+    allow-circular-references: true # 允许循环依赖
+
+server:
+  port: ${tiktok.server.port} # tomcat启动端口号
+
+dubbo: #dubbo配置
+  consumer:
+    check: true # 启动时检查提供者是否存在，true报错，false忽略
+  registry:
+    address: ${tiktok.dubbo.registry.address} # 注册中心zookeeper配置（默认2181端口）
+    group: tiktok_mall_service # 设置zookeeper的根节点，不配置将使用默认的根节点
+    enable-empty-protection: false #关闭推空保护
+  application: # 解决qos-server启动报错， qos是Dubbo的在线运维命令，可以对服务进行动态的配置、控制及查询
+    qos-enable: true
+    qos-port: 33333
+    qos-accept-foreign-ip: false
+    serialize-check-status: WARN
+
+# 日志配置
+logging:
+  level:
+    com:
+      tiktok:
+        mapper: debug
+        service: info
+        controller: info
+
+tiktok:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    user-secret-key: tiktok
+    # 设置jwt过期时间(20小时) 20h * 60min * 60s = 72000000ms
+    user-ttl: 72000000
+    # 设置前端传递过来的令牌名称
+    user-token-name: token
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    #自定义swagger前端请求路径,输入http:localhost:8080/swagger-ui.html会自动重定向到swagger页面
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs    #swagger后端请求地址
+    enabled: true   #是否开启文档功能
+  group-configs:
+    - group: '接口'   #分组名称
+      paths-to-match: '/**'   #配置需要匹配的路径,默认为/**
+      packages-to-scan: com.tiktok.controller    #配置要扫描包的路径,一般配置到启动类所在的包名
+
+# knife4j的增强配置，不需要增强可以不配(建议配置一下)
+knife4j:
+  enable: true    #开启knife4j,无需添加@EnableKnife4j注解
+  setting:
+    language: zh_cn   #中文
+    swagger-model-name: 实体类列表   #重命名SwaggerModel名称,默认
+
