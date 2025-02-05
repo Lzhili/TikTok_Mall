@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiktok.mapper.OrderMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into `tiktok-mall`.orders(number, user_id, address_book_id, order_time, pay_time, pay_method, amount, is_paid, username, email, address_detail)
+        values (#{number}, #{userId}, #{addressBookId}, #{orderTime}, #{payTime}, #{payMethod}, #{amount}, #{isPaid}, #{username}, #{email}, #{addressDetail})
+    </insert>
+</mapper>

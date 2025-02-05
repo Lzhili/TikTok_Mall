@@ -27,6 +27,7 @@
         <module>AddressBookService</module>
         <module>ProductService</module>
         <module>ShoppingCartService</module>
+        <module>OrderService</module>
     </modules>
 
     <properties>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiktok.mapper.OrderDetailMapper">
+
+    <insert id="insertBatch">
+        insert into `tiktok-mall`.order_detail(name, picture, order_id, product_id, quantity, amount)
+        values
+        <foreach collection="orderDetailsList" item="orderDetail" separator=",">
+            (#{orderDetail.name}, #{orderDetail.picture}, #{orderDetail.orderId}, #{orderDetail.productId}, #{orderDetail.quantity}, #{orderDetail.amount})
+        </foreach>
+    </insert>
+</mapper>

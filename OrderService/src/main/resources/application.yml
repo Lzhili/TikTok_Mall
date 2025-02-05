@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: order-provider #服务器名称
+  profiles:
+    active: dev  # 本机开发环境
+  main:
+    allow-circular-references: true # 允许循环依赖
+  datasource: #mysql数据库配置
+    druid:
+      driver-class-name: ${tiktok.datasource.driver-class-name}
+      url: jdbc:mysql://${tiktok.datasource.host}:${tiktok.datasource.port}/${tiktok.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${tiktok.datasource.username}
+      password: ${tiktok.datasource.password}
+  data:  #reids配置
+    redis:
+      host: ${tiktok.redis.host}
+      port: ${tiktok.redis.port}
+      password: ${tiktok.redis.password}
+      database: ${tiktok.redis.database}
+
+tiktok:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    user-secret-key: tiktok
+    # 设置jwt过期时间(20小时) 20h * 60min * 60s = 72000000ms
+    user-ttl: 72000000
+    # 设置前端传递过来的令牌名称
+    user-token-name: token
+
+dubbo: #dubbo配置
+  registry:
+    address: ${tiktok.dubbo.registry.address} # 注册中心zookeeper配置（默认2181端口）
+    group: tiktok_mall_service # 设置zookeeper的根节点，不配置将使用默认的根节点
+  protocol:
+    name: ${tiktok.dubbo.protocol.name} # 协议配置（triple）
+    port: ${tiktok.dubbo.protocol.port} # 协议端口号配置
+  scan:
+    base-packages: com.tiktok.service # 扫描后将该包下所有有注解的服务注册到注册中心
+  application:
+    qos-enable: true
+    qos-port: 33337
+    qos-accept-foreign-ip: false
+    serialize-check-status: WARN
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.tiktok.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+
+# 日志配置
+logging:
+  level:
+    com:
+      tiktok:
+        mapper: debug
+
+
