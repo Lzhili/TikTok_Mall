@@ -1,11 +1,12 @@
 package com.tiktok.service;
 
 import com.tiktok.dto.ProductPageQueryDTO;
+import com.tiktok.entity.Product;
 import com.tiktok.result.PageResult;
 import com.tiktok.vo.ProductVO;
 
 public interface ProductService {
     PageResult pageQuery(ProductPageQueryDTO productPageQueryDTO);
 
-    ProductVO getProductById(Long id);
+    Product getProductById(Long id);
 }

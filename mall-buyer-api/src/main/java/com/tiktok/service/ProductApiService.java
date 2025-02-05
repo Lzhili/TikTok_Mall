@@ -1,10 +1,12 @@
 package com.tiktok.service;
 
 import com.tiktok.dto.ProductPageQueryDTO;
+import com.tiktok.entity.Product;
 import com.tiktok.result.PageResult;
 import com.tiktok.vo.ProductVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -58,7 +60,11 @@ public class ProductApiService {
      * @return
      */
     public ProductVO getProductById(Long id) {
-        return productService.getProductById(id);
+        Product product = productService.getProductById(id);
+        //封装成VO返回
+        ProductVO productVO = new ProductVO();
+        BeanUtils.copyProperties(product, productVO);
+        return productVO;
     }
 
     /**

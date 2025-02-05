@@ -41,12 +41,9 @@ public class ProductServiceImpl implements ProductService{
      * @return
      */
     @Override
-    public ProductVO getProductById(Long id) {
+    public Product getProductById(Long id) {
         Product product = productMapper.getProductById(id);
-        //封装成VO返回
-        ProductVO productVO = new ProductVO();
-        BeanUtils.copyProperties(product, productVO);
-        return productVO;
+        return product;
     }
 
 }
