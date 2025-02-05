@@ -17,6 +17,7 @@
 
     <modules>
         <module>mall-common</module>
+        <module>mall-pojo</module>
     </modules>
 
     <properties>
