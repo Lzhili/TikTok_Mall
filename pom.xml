@@ -18,6 +18,7 @@
     <modules>
         <module>mall-common</module>
         <module>mall-pojo</module>
+        <module>mall-interface</module>
     </modules>
 
     <properties>
