@@ -43,8 +43,7 @@
 8. 启动`OrderService`
 9. 启动`PaymentService`
 
-最后再启动：
-9. 启动`mall-buyer-api`
+最后再启动`mall-buyer-api`
 
 
 ## 相关安装
