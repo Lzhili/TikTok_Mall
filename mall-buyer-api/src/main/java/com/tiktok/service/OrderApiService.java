@@ -4,8 +4,11 @@ import com.tiktok.context.BaseContext;
 import com.tiktok.dto.OrderPaidDTO;
 import com.tiktok.dto.OrdersSubmitDTO;
 import com.tiktok.vo.OrderSubmitVO;
+import com.tiktok.vo.OrderWithDetailVO;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrderApiService {
@@ -34,5 +37,13 @@ public class OrderApiService {
         orderPaidDTO.setUserId(BaseContext.getCurrentId());
 
         orderService.markOrderPaid(orderPaidDTO);
+    }
+
+    /**
+     * 查询当前用户所有订单
+     * @return
+     */
+    public List<OrderWithDetailVO> list() {
+        return orderService.list(BaseContext.getCurrentId());
     }
 }

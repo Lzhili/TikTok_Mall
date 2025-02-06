@@ -6,11 +6,14 @@ import com.tiktok.dto.OrdersSubmitDTO;
 import com.tiktok.result.Result;
 import com.tiktok.service.OrderApiService;
 import com.tiktok.vo.OrderSubmitVO;
+import com.tiktok.vo.OrderWithDetailVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "订单接口", description = "订单簿相关接口")
 @RestController
@@ -45,5 +48,17 @@ public class OrderController {
         log.info("用户标记订单为已支付");
         orderApiService.markOrderPaid(orderPaidDTO);
         return Result.success();
+    }
+
+    /**
+     * 查询当前登录用户的所有订单
+     * @return
+     */
+    @Operation(summary = "查询当前登录用户的所有订单")
+    @GetMapping("/list")
+    public Result<List<OrderWithDetailVO>> list(){
+        log.info("查询当前登录用户的所有订单");
+        List<OrderWithDetailVO> list = orderApiService.list();
+        return Result.success(list);
     }
 }

@@ -13,4 +13,11 @@
         set is_paid = 1, pay_time = #{payTime}, pay_method = #{payMethod}
         where id = #{orderId}
     </update>
+
+    <select id="list" resultType="com.tiktok.vo.OrderWithDetailVO">
+        select o.*, od.product_id, od.name, od.picture, od.quantity, od.amount as price
+        from `tiktok-mall`.orders o left join `tiktok-mall`.order_detail od on o.id = od.order_id
+        where user_id = #{userId}
+        order by o.order_time desc
+    </select>
 </mapper>

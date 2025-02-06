@@ -2,7 +2,10 @@ package com.tiktok.mapper;
 
 import com.tiktok.dto.OrderPaidDTO;
 import com.tiktok.entity.Orders;
+import com.tiktok.vo.OrderWithDetailVO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface OrderMapper {
@@ -18,4 +21,11 @@ public interface OrderMapper {
      * @param orderPaidDTO
      */
     void markOrderPaidById(OrderPaidDTO orderPaidDTO);
+
+    /**
+     * 根据用户id查询订单列表
+     * @param userId
+     * @return
+     */
+    List<OrderWithDetailVO> list(Long userId);
 }

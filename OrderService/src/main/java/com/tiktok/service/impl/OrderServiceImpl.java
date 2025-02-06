@@ -15,6 +15,7 @@ import com.tiktok.service.AddressBookService;
 import com.tiktok.service.OrderService;
 import com.tiktok.service.ShoppingCartService;
 import com.tiktok.vo.OrderSubmitVO;
+import com.tiktok.vo.OrderWithDetailVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -120,5 +121,15 @@ public class OrderServiceImpl implements OrderService {
     public void markOrderPaid(OrderPaidDTO orderPaidDTO) {
         orderPaidDTO.setPayTime(LocalDateTime.now());
         orderMapper.markOrderPaidById(orderPaidDTO);
+    }
+
+    /**
+     * 查询当前用户所有订单
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<OrderWithDetailVO> list(Long userId) {
+        return orderMapper.list(userId);
     }
 }
