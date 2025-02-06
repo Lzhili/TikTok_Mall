@@ -20,6 +20,7 @@
 - `ProductService`: 商品服务，提供商品查询、获取商品详细信息等业务功能。
 - `ShoppingCartService`: 购物车服务，提供购物车查询、添加商品等业务功能。
 - `OrderService`: 订单服务，提供订单创建、查询等业务功能。
+- `PaymentService`: 提供支付功能等业务功能。
 
 ## 项目配置
 ### 本项目的开发环境
@@ -40,6 +41,7 @@
 6. 启动`ProductService`
 7. 启动`ShoppingCartService`
 8. 启动`OrderService`
+9. 启动`PaymentService`
 
 最后再启动：
 9. 启动`mall-buyer-api`
