@@ -7,4 +7,10 @@
         insert into `tiktok-mall`.orders(number, user_id, address_book_id, order_time, pay_time, pay_method, amount, is_paid, username, email, address_detail)
         values (#{number}, #{userId}, #{addressBookId}, #{orderTime}, #{payTime}, #{payMethod}, #{amount}, #{isPaid}, #{username}, #{email}, #{addressDetail})
     </insert>
+
+    <update id="markOrderPaidById">
+        update `tiktok-mall`.orders
+        set is_paid = 1, pay_time = #{payTime}, pay_method = #{payMethod}
+        where id = #{orderId}
+    </update>
 </mapper>

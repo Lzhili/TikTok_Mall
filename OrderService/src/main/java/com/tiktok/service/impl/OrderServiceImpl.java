@@ -1,6 +1,7 @@
 package com.tiktok.service.impl;
 
 import com.tiktok.constant.MessageConstant;
+import com.tiktok.dto.OrderPaidDTO;
 import com.tiktok.dto.OrdersSubmitDTO;
 import com.tiktok.entity.AddressBook;
 import com.tiktok.entity.OrderDetail;
@@ -109,5 +110,15 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         return orderSubmitVO;
+    }
+
+    /**
+     * 用户标记订单为已支付
+     * @param orderPaidDTO
+     */
+    @Override
+    public void markOrderPaid(OrderPaidDTO orderPaidDTO) {
+        orderPaidDTO.setPayTime(LocalDateTime.now());
+        orderMapper.markOrderPaidById(orderPaidDTO);
     }
 }
