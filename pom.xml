@@ -28,6 +28,7 @@
         <module>ProductService</module>
         <module>ShoppingCartService</module>
         <module>OrderService</module>
+        <module>PaymentService</module>
     </modules>
 
     <properties>
