@@ -1,7 +1,7 @@
 # TikTok_Mall 抖音电商项目
 - 该项目为前后端分离项目的后端部分，前端项目`vue-mall`地址: [传送门](https://github.com/lzzlqwe/vue-mall)<br>
-- 前端主界面效果图如下：
-<br><img src=docs/img/homeView.png width="75%" />
+- 前端主界面效果图如下：<br>
+<br><img src=docs/img/homeView.png width="90%" />
 
 ## 项目背景
 该项目旨在构建一个基于Java和Dubbo的“简易版”微服务抖音商城系统。通过模块化设计，将不同的业务功能拆分为独立的服务，提升系统的可维护性和扩展性。
