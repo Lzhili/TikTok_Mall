@@ -1,6 +1,7 @@
 package com.tiktok.service;
 
 import com.tiktok.context.BaseContext;
+import com.tiktok.dto.AddressBookDTO;
 import com.tiktok.entity.AddressBook;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,10 @@ public class AddressBookApiService {
      */
     public AddressBook getById(Long id) {
         return addressBookService.getById(id);
+    }
+
+    public void addAddress(AddressBookDTO addressBookDTO) {
+        addressBookDTO.setUserId(BaseContext.getCurrentId());
+        addressBookService.addAddress(addressBookDTO);
     }
 }

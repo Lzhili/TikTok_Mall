@@ -1,10 +1,14 @@
 package com.tiktok.service.impl;
 
+import com.tiktok.context.BaseContext;
+import com.tiktok.dto.AddressBookDTO;
 import com.tiktok.entity.AddressBook;
 import com.tiktok.mapper.AddressBookMapper;
 import com.tiktok.service.AddressBookService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -36,4 +40,19 @@ public class AddressBookServiceImpl implements AddressBookService {
     public AddressBook getById(Long id) {
         return addressBookMapper.getById(id);
     }
+
+    /**
+     * 当前用户新增一个收货地址
+     * @param addressBookDTO
+     */
+    @Override
+    public void addAddress(AddressBookDTO addressBookDTO) {
+        AddressBook addressBook = new AddressBook();
+        BeanUtils.copyProperties(addressBookDTO, addressBook);
+//        Long userId = BaseContext.getCurrentId();
+//        addressBook.setUserId(userId);
+
+        addressBookMapper.addOne(addressBook);
+    }
+
 }
