@@ -46,6 +46,11 @@ public class AddressBookController {
         return Result.success(addressBook);
     }
 
+    /**
+     * 当前用户添加一个收货地址
+     * @param addressBookDTO
+     * @return
+     */
     @PostMapping
     @Operation(summary = "当前用户添加一个收货地址")
     public Result<String> addAddress(@RequestBody AddressBookDTO addressBookDTO) {

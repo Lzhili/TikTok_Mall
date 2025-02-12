@@ -1,6 +1,3 @@
-# 本地文件配置
-修改mall-dubbo-mall中的application-dev.yml文件，将数据库配置改为本地数据库的配置。
-
 # Mysql建表语句
 
 ## （1）用户表

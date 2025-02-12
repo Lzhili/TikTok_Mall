@@ -15,8 +15,6 @@
 - `TestService`: 用于测试dubbo功能。
 - `UserService`: 用户服务，提供用户注册、登录等业务功能。
 - `AuthService`: 发放token功能等业务功能。
-- `CategoryService`: 提供商品分类等业务功能。
-- `AddressBookService`: 查询当前用户保存的地址等业务功能。
 - `ProductService`: 商品服务，提供商品查询、获取商品详细信息等业务功能。
 - `ShoppingCartService`: 购物车服务，提供购物车查询、添加商品等业务功能。
 - `OrderService`: 订单服务，提供订单创建、查询等业务功能。
@@ -36,12 +34,10 @@
 1. 启动`TestService`
 2. 启动`UserService`
 3. 启动`AuthService`
-4. 启动`CategoryService`
-5. 启动`AddressBookService`
-6. 启动`ProductService`
-7. 启动`ShoppingCartService`
-8. 启动`OrderService`
-9. 启动`PaymentService`
+4. 启动`ProductService`
+5. 启动`ShoppingCartService`
+6. 启动`OrderService`
+7. 启动`PaymentService`
 
 最后再启动`mall-buyer-api`
 

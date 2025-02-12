@@ -31,6 +31,10 @@ public class AddressBookApiService {
         return addressBookService.getById(id);
     }
 
+    /**
+     * 新增地址
+     * @param addressBookDTO
+     */
     public void addAddress(AddressBookDTO addressBookDTO) {
         addressBookDTO.setUserId(BaseContext.getCurrentId());
         addressBookService.addAddress(addressBookDTO);
