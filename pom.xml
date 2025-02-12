@@ -23,7 +23,6 @@
         <module>testService</module>
         <module>UserService</module>
         <module>AuthService</module>
-        <module>CategoryService</module>
         <module>AddressBookService</module>
         <module>ProductService</module>
         <module>ShoppingCartService</module>
