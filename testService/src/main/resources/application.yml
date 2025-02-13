@@ -41,6 +41,7 @@ dubbo: #dubbo配置
     qos-port: 33330
     qos-accept-foreign-ip: false
     serialize-check-status: WARN
+    name: test-dubbo # dubbo应用名称
 
 mybatis:
   #mapper配置文件
