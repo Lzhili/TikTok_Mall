@@ -113,6 +113,19 @@
             <artifactId>aspectjweaver</artifactId>
         </dependency>
 
+        <!-- Sentinel-->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-apache-dubbo3-adapter</artifactId>
+            <version>1.8.7</version>
+        </dependency>
+        <!-- Sentinel控制台 optional -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-transport-simple-http</artifactId>
+            <version>1.8.7</version>
+        </dependency>
+
     </dependencies>
 
     <build>
