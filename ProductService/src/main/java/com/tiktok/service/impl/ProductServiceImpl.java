@@ -9,6 +9,7 @@ import com.tiktok.result.PageResult;
 import com.tiktok.service.ProductService;
 import com.tiktok.vo.ProductVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.ThreadUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,13 @@ public class ProductServiceImpl implements ProductService{
      */
     @Override
     public Product getProductById(Long id) {
+        //模拟业务延迟
+//        try {
+//            Thread.sleep(500);
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
         Product product = productMapper.getProductById(id);
         return product;
     }

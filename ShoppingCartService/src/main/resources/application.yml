@@ -41,6 +41,10 @@ dubbo: #dubbo配置
     qos-port: 33336
     qos-accept-foreign-ip: false
     serialize-check-status: WARN
+    name: shoppingCart-dubbo
+#  provider:  #相当于最大线程数为100，用于测试线程隔离和熔断降级
+#    threads: 50 #最大线程数
+#    queues: 50 #最大请求队列数
 
 mybatis:
   #mapper配置文件

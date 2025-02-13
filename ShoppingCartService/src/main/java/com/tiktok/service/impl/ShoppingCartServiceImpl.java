@@ -52,7 +52,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
             shoppingCart.setAmount(product.getPrice());
             shoppingCart.setStatus(1);
             shoppingCart.setCreateTime(LocalDateTime.now());
-            shoppingCartMapper.insert(shoppingCart);
+            shoppingCartMapper.insert(shoppingCart);  //当用于测试线程隔离和熔断降级时，注释掉该行。
         }
 
     }

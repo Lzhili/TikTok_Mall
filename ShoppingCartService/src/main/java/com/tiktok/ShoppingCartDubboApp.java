@@ -3,6 +3,9 @@ package com.tiktok;
 
 import com.alibaba.csp.sentinel.adapter.dubbo3.config.DubboAdapterGlobalConfig;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRuleManager;
+import com.alibaba.csp.sentinel.slots.block.degrade.circuitbreaker.CircuitBreakerStrategy;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.tiktok.entity.Product;
@@ -19,7 +22,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
@@ -47,6 +52,31 @@ public class ShoppingCartDubboApp {
             flowRule.setGrade(RuleConstant.FLOW_GRADE_THREAD);
             FlowRuleManager.loadRules(Collections.singletonList(flowRule));
             log.info("consumer线程隔离 set up successfully.");
+        }
+    }
+
+    //consumer熔断降级
+    @Component
+    static class SentinelDowngradeConfig implements CommandLineRunner {
+        @Override
+        public void run(String... args) {
+            List<DegradeRule> rules = new ArrayList<>();
+            DegradeRule rule = new DegradeRule();
+            rule.setResource(ProductService.class.getName() + ":getProductById(java.lang.Long)");
+            rule.setGrade(CircuitBreakerStrategy.SLOW_REQUEST_RATIO.getType()); //熔断策略:慢调用比例
+            rule.setCount(200); // 200ms，慢调用临界 RT（超出该值计为慢调用）
+            rule.setMinRequestAmount(5); //熔断触发的最小请求数
+            rule.setStatIntervalMs(1000); // 1s, 统计时长（单位为 ms）
+            rule.setTimeWindow(20); //熔断时长，单位为 s
+            rule.setSlowRatioThreshold(0.5); //慢调用比例阈值
+            rules.add(rule);
+
+            //这种是按照慢调用比例来做熔断，上述配置的含义是：
+            //- RT超过200毫秒的请求调用就是慢调用
+            //- 统计最近1000ms内的最少5次请求，如果慢调用比例不低于0.5，则触发熔断
+            //- 熔断持续时长20s
+
+            DegradeRuleManager.loadRules(rules);
         }
     }
 
