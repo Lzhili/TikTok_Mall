@@ -15,7 +15,7 @@ OrderDubboApp添加:
 ```
 -Dproject.name=Order -Dcsp.sentinel.dashboard.server=localhost:8099 -Dcsp.sentinel.api.port=8722
 ```
-3. 启动应用，并访问控制台 http://localhost:8099，就能在控制台找到对应的应用了（注意需要访问各个接口才能触发簇点链路，且一些接口可能由于redis缓存导致无法触发簇点链路，可以先删除一下redis缓存）。
+3. 启动应用，并访问控制台 `http://localhost:8099`，就能在控制台找到对应的应用了（注意需要访问各个接口才能触发簇点链路，且一些接口可能由于redis缓存导致无法触发簇点链路，可以先删除一下redis缓存）。
 
 最佳实践请参考[官方文档](https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/tasks/rate-limit/sentinel/)
 
