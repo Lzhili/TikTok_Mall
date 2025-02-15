@@ -19,6 +19,7 @@ import com.tiktok.vo.OrderWithDetailVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    @Transactional
+    @GlobalTransactional
     public OrderSubmitVO submitOrder(OrdersSubmitDTO ordersSubmitDTO) {
         //1.处理业务异常（地址簿为空、购物车数据为空）
         AddressBook addressBook = addressBookService.getById(ordersSubmitDTO.getAddressBookId());
@@ -101,6 +102,13 @@ public class OrderServiceImpl implements OrderService {
 
         //4.清空购物车数据
         shoppingCartService.deleteByUserId(userId);
+
+        //模拟错误，测试分布式事务是否回滚，
+//        try {
+//            int i = 1/0; //可在此打断点，便于查看各个表和undo_log表的变化
+//        } catch (Exception e) {
+//            throw new RuntimeException("测试分布式事务是否回滚！");
+//        }
 
         //5.封装返回的VO数据
         OrderSubmitVO orderSubmitVO = OrderSubmitVO.builder()

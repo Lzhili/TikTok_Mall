@@ -10,6 +10,7 @@ import com.tiktok.service.ShoppingCartService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,6 +33,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
      * @param shoppingCartDTO
      */
     @Override
+    @GlobalTransactional
     public void addShoppingCart(ShoppingCartDTO shoppingCartDTO) {
         //判断当前用户购物车中是否有该商品
         ShoppingCart shoppingCart = new ShoppingCart();
