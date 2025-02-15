@@ -30,15 +30,15 @@
 在每个服务的 `src/main/resources`目录下，创建配置文件`application-dev.yml`，请根据实际环境调整配置信息
 
 ## 准备工作
-1. 启动zookeeper注册中心服务([相关文档](#zookeeper安装))
+1. 启动zookeeper注册中心服务([详见文档](https://blog.csdn.net/tttzzzqqq2018/article/details/132093374))
 ```
 zkServer # 假设已经配好环境变量
 ```
-2. 启动Sentinel进行用于服务监控和保护(可选，[详见文档)](docs/使用Sentinel进行服务保护.md)
+2. （可选）启动Sentinel控制台，用于服务监控和保护([详见文档](docs/使用Sentinel进行服务保护.md))
 ```
 java -Dserver.port=8099 -Dcsp.sentinel.dashboard.server=localhost:8099 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar
 ```
-3. 启动Seata，用于提供分布式事务解决方案[(详见文档)](docs/Seata分布式事务解决方案.md)
+3. 启动Seata，用于提供分布式事务解决方案([详见文档](docs/Seata提供分布式事务解决方案.md))
 ```
 seata-server.bat -p 8091 -h 127.0.0.1 -m file
 ```
@@ -69,7 +69,7 @@ seata-server.bat -p 8091 -h 127.0.0.1 -m file
 - 接口测试文档：[传送门](docs/api接口测试.md)
 - 数据库建表语句：[传送门](docs/Mysql数据库文档.md)
 - 服务保护文档：[传送门](docs/使用Sentinel进行服务保护.md)
-- 分布式事务文档：[传送门](docs/Seata分布式事务解决方案.md)
+- 分布式事务文档：[传送门](docs/Seata提供分布式事务解决方案.md)
 
 
 
