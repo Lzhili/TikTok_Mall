@@ -133,6 +133,12 @@
             <version>2.1.0</version>
         </dependency>
 
+        <!-- 添加 Spring AMQP 依赖。RabbitMQ采用了AMQP协议 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
