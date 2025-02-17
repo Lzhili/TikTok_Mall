@@ -40,7 +40,11 @@ java -Dserver.port=8099 -Dcsp.sentinel.dashboard.server=localhost:8099 -Dproject
 ```
 3. 启动Seata，用于提供分布式事务解决方案([详见文档](docs/Seata提供分布式事务解决方案.md))
 ```
-seata-server.bat -p 8091 -h 127.0.0.1 -m file
+seata-server.bat -p 8091 -h 127.0.0.1 -m file  #在安装目录的bin路径下执行该命令
+```
+4. 启动RabbitMQ。请先安装RabbitMQ，参考[安装文档](https://blog.csdn.net/qq_39915083/article/details/107034747)
+```
+net start RabbitMQ   #以管理员身份启动cmd
 ```
 
 ## 服务启动顺序
