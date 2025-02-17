@@ -64,4 +64,21 @@ logging:
       tiktok:
         mapper: debug
 
+seata:
+  application-id: springboot-dubbo-seata-payment # 当前应用在Seata中的唯一标识符
+  # 事务组名称
+  # 通过将服务划分到不同的事务服务组中，可以更方便地管理和配置分布式事务。例如，在一个电商系统中，
+  # 订单服务、库存服务和支付服务可能属于同一个事务服务组，因为它们经常参与同一个分布式事务流程。
+  tx-service-group: tiktok-mall-group-1
+  enabled: true
+  service:
+    vgroup-mapping:
+      tiktok-mall-group-1: default # 事务服务组与tc集群的映射
+    grouplist:
+      default: ${seata.address:127.0.0.1}:8091 # 虚拟分组 default对应的Seata服务实例的地址列表
+  registry:
+    type: file # Seata客户端使用的注册中心类型为 file
+  config:
+    type: file # Seata客户端使用的配置中心类型为 file
+
 

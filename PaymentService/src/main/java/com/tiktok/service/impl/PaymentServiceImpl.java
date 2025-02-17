@@ -9,6 +9,7 @@ import com.tiktok.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @Slf4j
 //@Transactional, 加上interfaceClass事务注解才能生效
+@GlobalTransactional
 @DubboService(interfaceClass = PaymentService.class)
 public class PaymentServiceImpl implements PaymentService {
 
@@ -35,7 +37,7 @@ public class PaymentServiceImpl implements PaymentService {
     public String charge(ChargeDTO chargeDTO) {
         // 模拟支付过程（可以使用第三方库进行验证）
         // 这里只是简单示例，没有实际验证逻辑
-
+        // 实际情况下，应该会插入一条交易数据到交易表
         log.info("用户id：{}，支付方式：{}，订单号：{}，支付金额为：{}",
                 chargeDTO.getUserId(),
                 chargeDTO.getPayMethod().equals(Orders.WECHAT) ? PayMethodConstant.WECHAT : PayMethodConstant.ALIPAY,
@@ -51,6 +53,9 @@ public class PaymentServiceImpl implements PaymentService {
 //        orderService.markOrderPaid(orderPaidDTO);
 
         //用户标记订单为已支付（异步通知）
+        //发送消息这个分支事务作为Seata分布式事务的参与者RM（原先是整个同步调用流程），
+        //当全局事务的一阶段完成，这个MQ消息会根据二阶段要求commit/rollback进行消息的提交或撤回，在此之前消息不会被消费。
+        //举个异常例子，如果不加@GlobalTransactional注解，如果后续的发送短信等其他业务出错，发送到MQ的消息无法撤回。
         OrderPaidDTO orderPaidDTO = new OrderPaidDTO();
         BeanUtils.copyProperties(chargeDTO, orderPaidDTO);
         try {
