@@ -2,10 +2,14 @@ package com.tiktok.service.impl;
 
 import com.tiktok.constant.PayMethodConstant;
 import com.tiktok.dto.ChargeDTO;
+import com.tiktok.dto.OrderPaidDTO;
 import com.tiktok.entity.Orders;
+import com.tiktok.service.OrderService;
 import com.tiktok.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.beans.BeanUtils;
 
 import java.util.UUID;
 
@@ -13,6 +17,9 @@ import java.util.UUID;
 //@Transactional, 加上interfaceClass事务注解才能生效
 @DubboService(interfaceClass = PaymentService.class)
 public class PaymentServiceImpl implements PaymentService {
+
+    @DubboReference
+    private OrderService orderService;
 
     /**
      * 模拟支付
@@ -32,6 +39,11 @@ public class PaymentServiceImpl implements PaymentService {
 
         //支付成功，生成交易号返回
         String transactionNumber = UUID.randomUUID().toString();
+
+        //用户标记订单为已支付
+        OrderPaidDTO orderPaidDTO = new OrderPaidDTO();
+        BeanUtils.copyProperties(chargeDTO, orderPaidDTO);
+        orderService.markOrderPaid(orderPaidDTO);
 
         return transactionNumber;
     }
