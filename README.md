@@ -42,9 +42,14 @@ java -Dserver.port=8099 -Dcsp.sentinel.dashboard.server=localhost:8099 -Dproject
 ```
 seata-server.bat -p 8091 -h 127.0.0.1 -m file  #在安装目录的bin路径下执行该命令
 ```
-4. 启动RabbitMQ。请先安装RabbitMQ，参考[安装文档](https://blog.csdn.net/qq_39915083/article/details/107034747)
+4. 启动RabbitMQ。请先安装RabbitMQ，参考[安装文档](https://blog.csdn.net/qq_39915083/article/details/107034747)，并安装RabbitMQ的延时消息插件<br>
 ```
 net start RabbitMQ   #以管理员身份启动cmd
+```
+补充：RabbitMQ延时消息插件 <br>
+到[插件页面](https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases)下载对应版本的.ez文件（由于我们安装的MQ是4.0.6版本，因此这里下载4.0.2版本，具体视个人而定）。将插件复制到 RabbitMQ的plugin文件夹中，然后通过运行以下命令来启用它：
+```
+rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 ```
 
 ## 服务启动顺序
