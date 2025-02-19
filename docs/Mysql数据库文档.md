@@ -153,7 +153,7 @@ CREATE TABLE `orders` (
   `pay_time` datetime DEFAULT NULL COMMENT '付款时间',
   `pay_method` int NOT NULL DEFAULT '1' COMMENT '支付方式 1微信,2支付宝',
   `amount` decimal(10,2) NOT NULL COMMENT '订单金额',
-  `is_paid` int NOT NULL DEFAULT '0' COMMENT '0未支付1已支付',
+  `is_paid` int NOT NULL DEFAULT '0' COMMENT '0未支付1已支付2订单超时',
   `username` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '用户名称',
   `email` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '邮箱',
   `address_detail` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '完整详细地址',
@@ -192,7 +192,7 @@ CREATE TABLE `payment` (
   `pay_time` datetime DEFAULT NULL COMMENT '付款时间',
   `pay_method` int NOT NULL DEFAULT '1' COMMENT '支付方式 1微信,2支付宝',
   `order_amount` decimal(10,2) NOT NULL COMMENT '订单金额',
-  `is_paid` int NOT NULL DEFAULT '0' COMMENT '0未支付1已支付',
+  `is_paid` int NOT NULL DEFAULT '0' COMMENT '0未支付1已支付2订单超时',
    PRIMARY KEY (`id`),
    INDEX idx_user_id (user_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin COMMENT='支付表';
