@@ -4,6 +4,7 @@ import com.tiktok.dto.OrderPaidDTO;
 import com.tiktok.entity.Orders;
 import com.tiktok.vo.OrderWithDetailVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -28,4 +29,12 @@ public interface OrderMapper {
      * @return
      */
     List<OrderWithDetailVO> list(Long userId);
+
+    /**
+     * 根据id查询单条订单
+     * @param id
+     * @return
+     */
+    @Select("select * from `tiktok-mall`.orders where id = #{id}")
+    Orders getOrderById(Long id);
 }

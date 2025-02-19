@@ -6,6 +6,7 @@ import com.tiktok.dto.OrdersSubmitDTO;
 import com.tiktok.result.Result;
 import com.tiktok.service.OrderApiService;
 import com.tiktok.vo.OrderSubmitVO;
+import com.tiktok.vo.OrderVO;
 import com.tiktok.vo.OrderWithDetailVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -60,5 +61,18 @@ public class OrderController {
         log.info("查询当前登录用户的所有订单");
         List<OrderWithDetailVO> list = orderApiService.list();
         return Result.success(list);
+    }
+
+    /**
+     * 根据id查询单条订单
+     * @param id
+     * @return
+     */
+    @Operation(summary = "根据id查询单条订单")
+    @GetMapping("/{id}")
+    public Result<OrderVO> getOrderById(@PathVariable Long id){
+        log.info("根据订单id:{} 查询单条订单", id);
+        OrderVO orderVO = orderApiService.getOrderById(id);
+        return Result.success(orderVO);
     }
 }

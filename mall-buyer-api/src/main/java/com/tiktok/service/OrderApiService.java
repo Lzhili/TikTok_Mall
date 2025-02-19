@@ -3,9 +3,12 @@ package com.tiktok.service;
 import com.tiktok.context.BaseContext;
 import com.tiktok.dto.OrderPaidDTO;
 import com.tiktok.dto.OrdersSubmitDTO;
+import com.tiktok.entity.Orders;
 import com.tiktok.vo.OrderSubmitVO;
+import com.tiktok.vo.OrderVO;
 import com.tiktok.vo.OrderWithDetailVO;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +48,18 @@ public class OrderApiService {
      */
     public List<OrderWithDetailVO> list() {
         return orderService.list(BaseContext.getCurrentId());
+    }
+
+    /**
+     * 根据id查询单条订单
+     * @param id
+     * @return
+     */
+    public OrderVO getOrderById(Long id) {
+        Orders order = orderService.getOrderById(id);
+        //封装成VO返回
+        OrderVO orderVO = new OrderVO();
+        BeanUtils.copyProperties(order, orderVO);
+        return orderVO;
     }
 }

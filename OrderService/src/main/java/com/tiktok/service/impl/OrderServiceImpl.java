@@ -140,4 +140,16 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderWithDetailVO> list(Long userId) {
         return orderMapper.list(userId);
     }
+
+
+    /**
+     * 根据id查询单条订单数据
+     * @param id
+     * @return
+     */
+    @Override
+    public Orders getOrderById(Long id) {
+        Orders order = orderMapper.getOrderById(id);
+        return order;
+    }
 }
