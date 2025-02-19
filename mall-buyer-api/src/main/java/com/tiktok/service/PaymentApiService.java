@@ -2,6 +2,7 @@ package com.tiktok.service;
 
 import com.tiktok.context.BaseContext;
 import com.tiktok.dto.ChargeDTO;
+import com.tiktok.entity.Payment;
 import com.tiktok.vo.ChargeVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -34,4 +35,14 @@ public class PaymentApiService {
 
         return chargeVO;
     }
+
+    /**
+     * 根据订单id查询支付单信息
+     * @param orderId
+     * @return
+     */
+    public Payment queryPaymentByOrderId(Long orderId) {
+        return paymentService.queryPaymentByOrderId(orderId);
+    }
+
 }

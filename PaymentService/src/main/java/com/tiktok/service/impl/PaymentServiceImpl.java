@@ -4,6 +4,8 @@ import com.tiktok.constant.PayMethodConstant;
 import com.tiktok.dto.ChargeDTO;
 import com.tiktok.dto.OrderPaidDTO;
 import com.tiktok.entity.Orders;
+import com.tiktok.entity.Payment;
+import com.tiktok.mapper.PaymentMapper;
 import com.tiktok.service.OrderService;
 import com.tiktok.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +16,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Slf4j
@@ -27,6 +30,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private PaymentMapper paymentMapper;
 
     /**
      * 模拟支付
@@ -67,4 +73,15 @@ public class PaymentServiceImpl implements PaymentService {
 
         return transactionNumber;
     }
+
+    /**
+     * 根据订单id查询支付单信息
+     * @param orderId
+     * @return
+     */
+    @Override
+    public Payment queryPaymentByOrderId(Long orderId) {
+        return paymentMapper.queryPaymentByOrderId(orderId);
+    }
+
 }
