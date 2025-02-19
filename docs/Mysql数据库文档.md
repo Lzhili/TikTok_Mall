@@ -178,3 +178,22 @@ CREATE TABLE `order_detail` (
   INDEX idx_order_id (order_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin COMMENT='订单明细表';
 ```
+
+## （8）支付表
+### 创建支付表
+```
+DROP TABLE IF EXISTS `payment`;
+CREATE TABLE `payment` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `transaction_number` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '交易号',
+  `user_id` bigint NOT NULL COMMENT '用户id',
+  `order_id` bigint NOT NULL COMMENT '订单id',
+  `order_number` varchar(60) COLLATE utf8_bin DEFAULT NULL COMMENT '订单号',
+  `pay_time` datetime DEFAULT NULL COMMENT '付款时间',
+  `pay_method` int NOT NULL DEFAULT '1' COMMENT '支付方式 1微信,2支付宝',
+  `order_amount` decimal(10,2) NOT NULL COMMENT '订单金额',
+  `is_paid` int NOT NULL DEFAULT '0' COMMENT '0未支付1已支付',
+   PRIMARY KEY (`id`),
+   INDEX idx_user_id (user_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin COMMENT='支付表';
+```
