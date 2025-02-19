@@ -7,4 +7,6 @@ public interface PaymentService {
     String charge(ChargeDTO chargeDTO);
 
     Payment queryPaymentByOrderId(Long orderId);
+
+    void addPayment(Payment payment);
 }

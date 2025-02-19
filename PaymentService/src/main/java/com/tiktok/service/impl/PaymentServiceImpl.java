@@ -53,6 +53,18 @@ public class PaymentServiceImpl implements PaymentService {
         //支付成功，生成交易号返回
         String transactionNumber = UUID.randomUUID().toString();
 
+        //插入支付单到数据库
+        Payment payment = Payment.builder()
+                .transactionNumber(transactionNumber) //交易号
+                .userId(chargeDTO.getUserId())
+                .orderId(chargeDTO.getOrderId())
+                .orderNumber(chargeDTO.getOrderNumber())
+                .payMethod(chargeDTO.getPayMethod())
+                .orderAmount(chargeDTO.getOrderAmount())
+                .isPaid(Payment.PAID) //已经支付
+                .build();
+        paymentMapper.addPayment(payment);
+
 //        //用户标记订单为已支付（同步调用）
 //        OrderPaidDTO orderPaidDTO = new OrderPaidDTO();
 //        BeanUtils.copyProperties(chargeDTO, orderPaidDTO);
@@ -82,6 +94,15 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public Payment queryPaymentByOrderId(Long orderId) {
         return paymentMapper.queryPaymentByOrderId(orderId);
+    }
+
+    /**
+     * 添加支付单信息
+     * @param payment
+     */
+    @Override
+    public void addPayment(Payment payment) {
+        paymentMapper.addPayment(payment);
     }
 
 }
