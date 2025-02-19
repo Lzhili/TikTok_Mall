@@ -16,10 +16,11 @@ import java.time.LocalDateTime;
 public class OrderVO implements Serializable {
 
     /**
-     * 支付状态 0未支付 1已支付
+     * 支付状态 0未支付 1已支付 2订单超时
      */
     public static final Integer UN_PAID = 0;
     public static final Integer PAID = 1;
+    public static final Integer TIMEOUT = 2;
 
     /**
      * 支付方式 1 微信（默认方式） 2 支付宝
@@ -51,7 +52,7 @@ public class OrderVO implements Serializable {
     //订单金额
     private BigDecimal amount;
 
-    //支付状态 0未支付 1已支付
+    //支付状态 0未支付 1已支付 2订单超时
     private Integer isPaid;
 
     //用户名

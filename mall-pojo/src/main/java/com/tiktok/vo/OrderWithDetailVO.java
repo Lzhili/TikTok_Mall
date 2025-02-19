@@ -39,7 +39,7 @@ public class OrderWithDetailVO implements Serializable {
     //订单总金额
     private BigDecimal amount;
 
-    //支付状态 0未支付 1已支付
+    //支付状态 0未支付 1已支付 2订单超时
     private Integer isPaid;
 
     //用户名
