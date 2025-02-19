@@ -189,6 +189,7 @@ CREATE TABLE `payment` (
   `user_id` bigint NOT NULL COMMENT '用户id',
   `order_id` bigint NOT NULL COMMENT '订单id',
   `order_number` varchar(60) COLLATE utf8_bin DEFAULT NULL COMMENT '订单号',
+  `pay_method` int NOT NULL DEFAULT '1' COMMENT '支付方式 1微信,2支付宝',
   `order_amount` decimal(10,2) NOT NULL COMMENT '订单金额',
   `is_paid` int NOT NULL DEFAULT '0' COMMENT '0未支付1已支付2订单超时',
    PRIMARY KEY (`id`),

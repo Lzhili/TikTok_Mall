@@ -47,9 +47,6 @@ public class Payment implements Serializable {
     //订单号
     private String orderNumber;
 
-    //付款时间
-    private LocalDateTime payTime;
-
     //支付方式 1 微信，2支付宝
     private Integer payMethod;
 
