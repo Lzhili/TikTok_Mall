@@ -37,4 +37,10 @@ public interface OrderMapper {
      */
     @Select("select * from `tiktok-mall`.orders where id = #{id}")
     Orders getOrderById(Long id);
+
+    /**
+     * 根据订单id取消订单
+     * @param orderId
+     */
+    void cancelOrderById(Long orderId);
 }

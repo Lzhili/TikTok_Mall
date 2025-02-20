@@ -20,4 +20,10 @@
         where user_id = #{userId}
         order by o.order_time desc
     </select>
+
+    <update id="cancelOrderById">
+        update `tiktok-mall`.orders
+        set is_paid = 2, pay_time = null
+        where id = #{orderId}
+    </update>
 </mapper>

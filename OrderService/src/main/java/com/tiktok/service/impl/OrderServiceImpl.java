@@ -1,5 +1,6 @@
 package com.tiktok.service.impl;
 
+import com.tiktok.constant.MQConstant;
 import com.tiktok.constant.MessageConstant;
 import com.tiktok.dto.OrderPaidDTO;
 import com.tiktok.dto.OrdersSubmitDTO;
@@ -20,6 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.seata.spring.annotation.GlobalTransactional;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +49,9 @@ public class OrderServiceImpl implements OrderService {
 
     @DubboReference
     private ShoppingCartService shoppingCartService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     /**
      *  提交订单
@@ -117,6 +125,25 @@ public class OrderServiceImpl implements OrderService {
                 .orderAmount(orders.getAmount()) //订单金额
                 .orderTime(orders.getOrderTime()) //下单时间
                 .build();
+//
+//        //6.发送延迟消息，检测订单支付状态
+//        try {
+//            rabbitTemplate.convertAndSend(
+//                    MQConstant.DELAY_EXCHANGE_NAME,//exchange
+//                    MQConstant.DELAY_ORDER_KEY, // routingKey
+//                    orders.getId(), //消息体为订单id
+//                    new MessagePostProcessor() { //利用消息后置处理器添加消息头
+//                        @Override
+//                        public Message postProcessMessage(Message message) throws AmqpException {
+//                            //添加延迟消息属性
+//                            message.getMessageProperties().setDelay(10000);//实际为15分钟，这里为了方便测试可改为10秒
+//                            return message;
+//                        }
+//                    });
+//            log.info("发送延迟消息成功，检测订单支付状态");
+//        }catch (Exception e){
+//            log.error("发送延迟消息失败");
+//        }
 
         return orderSubmitVO;
     }
@@ -127,7 +154,7 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public void markOrderPaid(OrderPaidDTO orderPaidDTO) {
-        orderPaidDTO.setPayTime(LocalDateTime.now());
+//        orderPaidDTO.setPayTime(LocalDateTime.now());
         orderMapper.markOrderPaidById(orderPaidDTO);
     }
 
@@ -151,5 +178,14 @@ public class OrderServiceImpl implements OrderService {
     public Orders getOrderById(Long id) {
         Orders order = orderMapper.getOrderById(id);
         return order;
+    }
+
+    /**
+     * 用户取消订单
+     * @param orderId
+     */
+    @Override
+    public void cancelOrder(Long orderId) {
+        orderMapper.cancelOrderById(orderId);
     }
 }
