@@ -42,13 +42,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public String charge(ChargeDTO chargeDTO) {
         // 模拟支付过程（可以使用第三方库进行验证）
-        // 这里只是简单示例，没有实际验证逻辑
-        // 实际情况下，应该会插入一条交易数据到交易表
         log.info("用户id：{}，支付方式：{}，订单号：{}，支付金额为：{}",
                 chargeDTO.getUserId(),
                 chargeDTO.getPayMethod().equals(Orders.WECHAT) ? PayMethodConstant.WECHAT : PayMethodConstant.ALIPAY,
                 chargeDTO.getOrderNumber(),
                 chargeDTO.getOrderAmount());
+
+        // 支付成功，设置支付时间为当前时间
+        chargeDTO.setPayTime(LocalDateTime.now());
 
         //支付成功，生成交易号返回
         String transactionNumber = UUID.randomUUID().toString();
@@ -59,6 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .userId(chargeDTO.getUserId())
                 .orderId(chargeDTO.getOrderId())
                 .orderNumber(chargeDTO.getOrderNumber())
+                .payTime(chargeDTO.getPayTime())
                 .payMethod(chargeDTO.getPayMethod())
                 .orderAmount(chargeDTO.getOrderAmount())
                 .isPaid(Payment.PAID) //已经支付

@@ -26,7 +26,7 @@ public interface PaymentMapper {
      * 添加支付单
      * @param payment
      */
-    @Insert("insert into `tiktok-mall`.payment (transaction_number, user_id, order_id, order_number, pay_method, order_amount, is_paid) " +
-            "values (#{transactionNumber}, #{userId}, #{orderId}, #{orderNumber}, #{payMethod}, #{orderAmount}, #{isPaid})")
+    @Insert("insert into `tiktok-mall`.payment (transaction_number, user_id, order_id, order_number, pay_time, pay_method, order_amount, is_paid) " +
+            "values (#{transactionNumber}, #{userId}, #{orderId}, #{orderNumber}, #{payTime}, #{payMethod}, #{orderAmount}, #{isPaid})")
     void addPayment(Payment payment);
 }
