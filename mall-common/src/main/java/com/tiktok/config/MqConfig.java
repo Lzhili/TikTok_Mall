@@ -1,5 +1,7 @@
 package com.tiktok.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
@@ -16,7 +18,18 @@ public class MqConfig {
      * @return
      */
     @Bean
-    public MessageConverter messageConverter() {
-        return new Jackson2JsonMessageConverter();
+    public MessageConverter messageConverter(ObjectMapper objectMapper) {
+        return new Jackson2JsonMessageConverter(objectMapper);
+    }
+
+    /**
+     * 自定义ObjectMapper，支持Java 8日期时间类型
+     * @return
+     */
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return mapper;
     }
 }
