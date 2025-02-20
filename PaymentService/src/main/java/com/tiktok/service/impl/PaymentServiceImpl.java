@@ -79,6 +79,7 @@ public class PaymentServiceImpl implements PaymentService {
         OrderPaidDTO orderPaidDTO = new OrderPaidDTO();
         BeanUtils.copyProperties(chargeDTO, orderPaidDTO);
         try {
+            //下面这句注释掉，可以模拟当MQ通知失败（即这个消息发送不到订单服务），兜底方案可以确保Order和Payment支付状态的一致性。
             rabbitTemplate.convertAndSend("pay.direct", "pay.success", orderPaidDTO);
             log.info("支付成功的异步通知消息发送成功，订单id：{}， 订单号：{}", chargeDTO.getOrderId(), chargeDTO.getOrderNumber());
         }catch (Exception e){

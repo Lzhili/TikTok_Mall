@@ -125,25 +125,25 @@ public class OrderServiceImpl implements OrderService {
                 .orderAmount(orders.getAmount()) //订单金额
                 .orderTime(orders.getOrderTime()) //下单时间
                 .build();
-//
-//        //6.发送延迟消息，检测订单支付状态
-//        try {
-//            rabbitTemplate.convertAndSend(
-//                    MQConstant.DELAY_EXCHANGE_NAME,//exchange
-//                    MQConstant.DELAY_ORDER_KEY, // routingKey
-//                    orders.getId(), //消息体为订单id
-//                    new MessagePostProcessor() { //利用消息后置处理器添加消息头
-//                        @Override
-//                        public Message postProcessMessage(Message message) throws AmqpException {
-//                            //添加延迟消息属性
-//                            message.getMessageProperties().setDelay(10000);//实际为15分钟，这里为了方便测试可改为10秒
-//                            return message;
-//                        }
-//                    });
-//            log.info("发送延迟消息成功，检测订单支付状态");
-//        }catch (Exception e){
-//            log.error("发送延迟消息失败");
-//        }
+
+        //6.发送延迟消息，检测订单支付状态
+        try {
+            rabbitTemplate.convertAndSend(
+                    MQConstant.DELAY_EXCHANGE_NAME,//exchange
+                    MQConstant.DELAY_ORDER_KEY, // routingKey
+                    orders.getId(), //消息体为订单id
+                    new MessagePostProcessor() { //利用消息后置处理器添加消息头
+                        @Override
+                        public Message postProcessMessage(Message message) throws AmqpException {
+                            //添加延迟消息属性
+                            message.getMessageProperties().setDelay(30000);//实际为15分钟，这里为了方便测试可改为30秒
+                            return message;
+                        }
+                    });
+            log.info("发送延迟消息成功，检测订单支付状态");
+        }catch (Exception e){
+            log.error("发送延迟消息失败");
+        }
 
         return orderSubmitVO;
     }
