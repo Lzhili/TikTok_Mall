@@ -1,5 +1,6 @@
 package com.tiktok.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.tiktok.dto.ProductPageQueryDTO;
 import com.tiktok.result.PageResult;
 import com.tiktok.result.Result;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@SaCheckLogin
 @Slf4j
 @RestController
 @Tag(name = "商品接口", description = "商品接口")

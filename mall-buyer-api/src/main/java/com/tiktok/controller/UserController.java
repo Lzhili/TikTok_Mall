@@ -59,6 +59,7 @@ public class UserController {
     @PostMapping("/logout")
     public Result<String> logout() {
         log.info("用户退出登录");
+        userApiService.logout();
         return Result.success();
     }
 }

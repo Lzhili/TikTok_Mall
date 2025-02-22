@@ -1,6 +1,7 @@
 package com.tiktok.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.tiktok.dto.OrderPaidDTO;
 import com.tiktok.dto.OrdersSubmitDTO;
 import com.tiktok.result.Result;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Tag(name = "订单接口", description = "订单簿相关接口")
+@SaCheckLogin
 @RestController
 @Slf4j
 @RequestMapping(value = "/buyer/order")

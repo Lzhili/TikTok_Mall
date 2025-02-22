@@ -24,7 +24,7 @@ public class UserLoginVO implements Serializable {
     @Schema(description = "邮箱")
     private String email;
 
-    @Schema(description = "jwt令牌")
+    @Schema(description = "令牌值")
     private String token;
 }
 

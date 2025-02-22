@@ -1,5 +1,6 @@
 package com.tiktok.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.tiktok.dto.AddressBookDTO;
 import com.tiktok.entity.AddressBook;
 import com.tiktok.result.Result;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Tag(name = "地址簿管理接口", description = "地址簿相关接口")
+@SaCheckLogin
 @RestController
 @Slf4j
 @RequestMapping(value = "/buyer/addressBook")

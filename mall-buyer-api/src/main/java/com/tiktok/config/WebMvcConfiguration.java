@@ -1,6 +1,9 @@
 package com.tiktok.config;
 
 
+import cn.dev33.satoken.interceptor.SaInterceptor;
+import cn.dev33.satoken.stp.StpUtil;
+import com.tiktok.context.BaseContext;
 import com.tiktok.interceptor.JwtTokenUserInterceptor;
 import com.tiktok.json.JacksonObjectMapper;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -34,7 +37,20 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      */
     protected void addInterceptors(InterceptorRegistry registry) {
         log.info("开始注册自定义拦截器...");
-        registry.addInterceptor(jwtTokenUserInterceptor)
+//        registry.addInterceptor(jwtTokenUserInterceptor)
+//                .addPathPatterns("/buyer/**")
+//                .excludePathPatterns("/buyer/user/login")
+//                .excludePathPatterns("/buyer/user/register")
+//                .excludePathPatterns("/buyer/test");
+        // 注册 Sa-Token 拦截器
+        registry.addInterceptor(new SaInterceptor(handle -> {
+                    // 在 SaInterceptor 的逻辑执行之前，设置当前用户 ID
+                    if (StpUtil.isLogin()) {
+                        Long userId = Long.valueOf(StpUtil.getLoginId().toString());
+                        BaseContext.setCurrentId(userId); // 设置当前用户 ID
+                        log.info("当前用户id：{}", userId);
+                    }
+                }))
                 .addPathPatterns("/buyer/**")
                 .excludePathPatterns("/buyer/user/login")
                 .excludePathPatterns("/buyer/user/register")

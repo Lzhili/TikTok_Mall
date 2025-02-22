@@ -1,5 +1,6 @@
 package com.tiktok.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.tiktok.dto.ChargeDTO;
 import com.tiktok.entity.Payment;
 import com.tiktok.result.Result;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@SaCheckLogin
 @Slf4j
 @RestController
 @Tag(name = "支付接口", description = "支付接口")

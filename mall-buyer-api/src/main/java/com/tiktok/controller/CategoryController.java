@@ -1,6 +1,7 @@
 package com.tiktok.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.tiktok.entity.Category;
 import com.tiktok.result.Result;
 import com.tiktok.service.CategoryApiService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @Tag(name = "分类管理接口", description = "分类相关接口")
+@SaCheckLogin
 @RestController
 @Slf4j
 @RequestMapping(value = "/buyer/category")
