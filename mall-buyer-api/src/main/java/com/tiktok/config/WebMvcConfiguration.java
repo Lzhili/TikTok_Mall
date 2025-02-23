@@ -51,10 +51,10 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                         log.info("当前用户id：{}", userId);
                     }
                 }))
-                .addPathPatterns("/buyer/**")
-                .excludePathPatterns("/buyer/user/login")
-                .excludePathPatterns("/buyer/user/register")
-                .excludePathPatterns("/buyer/test");
+                .addPathPatterns("/buyer/**");
+//                .excludePathPatterns("/buyer/user/login")
+//                .excludePathPatterns("/buyer/user/register")
+//                .excludePathPatterns("/buyer/test");
     }
 
     /**
