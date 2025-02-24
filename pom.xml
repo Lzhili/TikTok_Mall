@@ -50,6 +50,8 @@
         <dubbo-protocol-dubbo>3.3.0</dubbo-protocol-dubbo>
         <dubbo-protocol-triple>3.3.0</dubbo-protocol-triple>
         <dubbo-registry-zookeeper>3.3.0</dubbo-registry-zookeeper>
+
+        <sa-token.version>1.40.0</sa-token.version>
     </properties>
 
     <dependencyManagement>
@@ -164,6 +166,24 @@
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-registry-zookeeper</artifactId>
                 <version>${dubbo-registry-zookeeper}</version>
+            </dependency>
+
+            <!-- Sa-token 权限认证框架-->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot3-starter</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+            <!-- Sa-Token 整合 Redis （使用 jdk 默认序列化方式） -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-redis</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+            <!-- 提供Redis连接池 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
             </dependency>
 
         </dependencies>

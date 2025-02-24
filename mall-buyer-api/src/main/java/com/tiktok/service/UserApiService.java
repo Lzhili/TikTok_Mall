@@ -32,12 +32,14 @@ public class UserApiService {
         // 在 UserApiService 中，使用 Sa-Token 的 StpUtil 替代原有的 JWT 逻辑。
         StpUtil.login(user.getId()); // 使用 Sa-Token 登录
         String token = StpUtil.getTokenValue(); // 获取 Token，Token name 已经在 application.yml 文件中设置（写死了），故无需传递给前端
+        Long expireTime = StpUtil.getTokenTimeout();
 
         UserLoginVO userLoginVO = UserLoginVO.builder()
                 .id(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .token(token)
+                .expireTime(expireTime)
                 .build();
 
         return userLoginVO;

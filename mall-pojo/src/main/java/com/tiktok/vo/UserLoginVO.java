@@ -26,6 +26,9 @@ public class UserLoginVO implements Serializable {
 
     @Schema(description = "令牌值")
     private String token;
+
+    @Schema(description = "令牌过期时间")
+    private Long expireTime;
 }
 
 
