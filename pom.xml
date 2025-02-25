@@ -45,6 +45,7 @@
         <aspectj>1.9.4</aspectj>
         <jjwt>0.9.1</jjwt>
         <jaxb-api>2.3.1</jaxb-api>
+        <commons-pool2>2.12.0</commons-pool2>
 
         <dubbo-spring-boot>3.3.0</dubbo-spring-boot>
         <dubbo-protocol-dubbo>3.3.0</dubbo-protocol-dubbo>
@@ -184,6 +185,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2}</version>
             </dependency>
 
         </dependencies>

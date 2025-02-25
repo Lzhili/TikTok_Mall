@@ -202,3 +202,20 @@ CREATE TABLE `payment` (
    INDEX idx_user_id (user_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin COMMENT='支付表';
 ```
+
+## （9）日志表
+### 创建日志表（用于记录增删改操作）
+```
+DROP TABLE IF EXISTS `operate_log`;
+create table operate_log(
+                            id bigint unsigned auto_increment comment '主键',
+                            operate_user bigint unsigned comment '操作人ID',
+                            operate_time datetime comment '操作时间',
+                            class_name varchar(100) comment '操作的类名',
+                            method_name varchar(100) comment '操作的方法名',
+                            method_params varchar(1000) comment '方法参数',
+                            return_value varchar(2000) comment '返回值',
+                            cost_time bigint comment '方法执行耗时, 单位:ms',
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin comment '操作日志表';
+```
