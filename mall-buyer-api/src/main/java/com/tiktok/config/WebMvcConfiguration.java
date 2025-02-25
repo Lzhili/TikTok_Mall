@@ -63,7 +63,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         registry.addInterceptor(new SaInterceptor(handler -> {
             // 1. 校验是否登录
             SaRouter.match("/buyer/**") // 匹配所有 buyer 路径
-                    .notMatch("/buyer/user/login", "/buyer/user/register", "/buyer/logout", "/buyer/test") // 排除白名单
+                    .notMatch("/buyer/user/login", "/buyer/user/register", "/buyer/logout", "/buyer/test", "/buyer/product") // 排除白名单
                     .check(r -> StpUtil.checkLogin());
 
             if (StpUtil.isLogin()) {

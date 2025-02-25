@@ -24,4 +24,10 @@ public interface ProductMapper {
      */
     @Select("select * from `tiktok-mall`.product where id = #{id}")
     Product getProductById(Long id);
+
+    /**
+     * 增加一个商品
+     * @param product
+     */
+    void insertOneProduct(Product product);
 }

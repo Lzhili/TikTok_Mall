@@ -1,6 +1,8 @@
 package com.tiktok.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import com.tiktok.dto.AddressBookDTO;
+import com.tiktok.dto.ProductDTO;
 import com.tiktok.dto.ProductPageQueryDTO;
 import com.tiktok.result.PageResult;
 import com.tiktok.result.Result;
@@ -11,10 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -49,5 +48,18 @@ public class ProductController {
         log.info("根据id:{}回显商品数据", id);
         ProductVO productVO = productApiService.getProductById(id);
         return Result.success(productVO);
+    }
+
+    /**
+     * 增加一个商品
+     * @param productDTO
+     * @return
+     */
+    @Operation(summary = "增加一个商品")
+    @PostMapping
+    public Result<String> addOneProduct(@RequestBody ProductDTO productDTO){
+        log.info("增加一个商品");
+        productApiService.addOneProduct(productDTO);
+        return Result.success("增加商品成功！");
     }
 }

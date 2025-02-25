@@ -1,5 +1,6 @@
 package com.tiktok.service;
 
+import com.tiktok.dto.ProductDTO;
 import com.tiktok.dto.ProductPageQueryDTO;
 import com.tiktok.entity.Product;
 import com.tiktok.result.PageResult;
@@ -10,6 +11,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -80,5 +83,35 @@ public class ProductApiService {
             keyBuilder.append(":categoryId:").append(productPageQueryDTo.getCategoryId());
         }
         return keyBuilder.toString();
+    }
+
+    /**
+     * 增加一个商品
+     * @param productDTO
+     * @return
+     */
+    public void addOneProduct(ProductDTO productDTO) {
+        productService.addOneProduct(productDTO);
+
+        // 清理与商品分页查询相关的Redis缓存
+        clearProductPageCache();
+        log.info("新增商品后，清理Redis缓存。");
+    }
+
+    /**
+     * 清理与商品分页查询相关的Redis缓存
+     */
+    private void clearProductPageCache() {
+        // 生成缓存键的前缀
+        String cacheKeyPrefix = "product:page:*";
+
+        // 查找所有匹配的缓存键
+        Set<String> keys = redisTemplate.keys(cacheKeyPrefix);
+
+        // 删除所有匹配的缓存键
+        if (keys != null && !keys.isEmpty()) {
+            redisTemplate.delete(keys);
+            log.info("清理Redis缓存，删除的缓存键：{}", keys);
+        }
     }
 }

@@ -15,4 +15,9 @@
         </where>
         order by p.create_time desc
     </select>
+
+    <insert id="insertOneProduct" useGeneratedKeys="true" keyProperty="id">
+        insert into `tiktok-mall`.product (name, category_id, price, picture, description, create_time, update_time)
+        values (#{name}, #{categoryId}, #{price}, #{picture}, #{description}, #{createTime}, #{updateTime})
+    </insert>
 </mapper>

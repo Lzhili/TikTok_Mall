@@ -45,6 +45,11 @@ tiktok:
     user-ttl: 72000000
     # 设置前端传递过来的令牌名称
     user-token-name: token
+  alioss:
+    endpoint: ${tiktok.alioss.endpoint}
+    access-key-id: ${tiktok.alioss.access-key-id}
+    access-key-secret: ${tiktok.alioss.access-key-secret}
+    bucket-name: ${tiktok.alioss.bucket-name}
 
 # springdoc-openapi项目配置
 springdoc:

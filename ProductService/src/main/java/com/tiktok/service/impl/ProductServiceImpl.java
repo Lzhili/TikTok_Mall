@@ -2,6 +2,7 @@ package com.tiktok.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.tiktok.dto.ProductDTO;
 import com.tiktok.dto.ProductPageQueryDTO;
 import com.tiktok.entity.Product;
 import com.tiktok.mapper.ProductMapper;
@@ -13,6 +14,9 @@ import org.apache.commons.io.ThreadUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+
+import java.time.LocalDateTime;
 
 @Slf4j
 //@Transactional, 加上interfaceClass事务注解才能生效
@@ -54,4 +58,15 @@ public class ProductServiceImpl implements ProductService{
         return product;
     }
 
+    @Override
+    public void addOneProduct(ProductDTO productDTO) {
+        Product product = new Product();
+        BeanUtils.copyProperties(productDTO, product);
+
+        LocalDateTime now = LocalDateTime.now();
+        product.setCreateTime(now);
+        product.setUpdateTime(now);
+
+        productMapper.insertOneProduct(product);
+    }
 }
