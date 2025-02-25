@@ -1,7 +1,10 @@
 package com.tiktok.config;
 
 
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.interceptor.SaInterceptor;
+import cn.dev33.satoken.router.SaHttpMethod;
+import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
 import com.tiktok.context.BaseContext;
 import com.tiktok.interceptor.JwtTokenUserInterceptor;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 配置类，注册web层相关组件
@@ -27,8 +31,8 @@ import java.util.List;
 @Slf4j
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
-    @Autowired
-    private JwtTokenUserInterceptor jwtTokenUserInterceptor;
+//    @Autowired
+//    private JwtTokenUserInterceptor jwtTokenUserInterceptor;
 
     /**
      * 注册自定义拦截器
@@ -43,18 +47,40 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 //                .excludePathPatterns("/buyer/user/register")
 //                .excludePathPatterns("/buyer/test");
         // 注册 Sa-Token 拦截器
-        registry.addInterceptor(new SaInterceptor(handle -> {
-                    // 在 SaInterceptor 的逻辑执行之前，设置当前用户 ID
-                    if (StpUtil.isLogin()) {
-                        Long userId = Long.valueOf(StpUtil.getLoginId().toString());
-                        BaseContext.setCurrentId(userId); // 设置当前用户 ID
-                        log.info("当前用户id：{}", userId);
-                    }
-                }))
-                .addPathPatterns("/buyer/**");
+//        registry.addInterceptor(new SaInterceptor(handle -> {
+//                    // 在 SaInterceptor 的逻辑执行之前，设置当前用户 ID
+//                    if (StpUtil.isLogin()) {
+//                        Long userId = Long.valueOf(StpUtil.getLoginId().toString());
+//                        BaseContext.setCurrentId(userId); // 设置当前用户 ID
+//                        log.info("当前用户id：{}", userId);
+//                    }
+//                }))
+//                .addPathPatterns("/buyer/**")
 //                .excludePathPatterns("/buyer/user/login")
 //                .excludePathPatterns("/buyer/user/register")
 //                .excludePathPatterns("/buyer/test");
+        // Sa-Token 全局鉴权拦截器
+        registry.addInterceptor(new SaInterceptor(handler -> {
+            // 1. 校验是否登录
+            SaRouter.match("/buyer/**") // 匹配所有 buyer 路径
+                    .notMatch("/buyer/user/login", "/buyer/user/register", "/buyer/logout", "/buyer/test") // 排除白名单
+                    .check(r -> StpUtil.checkLogin());
+
+            if (StpUtil.isLogin()) {
+                Long userId = Long.valueOf(StpUtil.getLoginId().toString());
+                BaseContext.setCurrentId(userId); // 设置当前用户 ID
+                log.info("当前用户id：{}", userId);
+            }
+
+            // 2. 逐个匹配路径并校验权限
+            SaRouter.match("/buyer/addressBook/**").check(r -> StpUtil.checkPermission("buyer:addressBook:*"));
+            SaRouter.match("/buyer/category/**").check(r -> StpUtil.checkPermission("buyer:category:*"));
+            SaRouter.match("/buyer/order/**").check(r -> StpUtil.checkPermission("buyer:order:*"));
+            SaRouter.match("/buyer/payment/**").check(r -> StpUtil.checkPermission("buyer:payment:*"));
+            SaRouter.match("/buyer/product/page").check(r -> StpUtil.checkPermission("buyer:product:page"));
+            SaRouter.match(SaHttpMethod.GET).match("/buyer/product/{id}").check(r -> StpUtil.checkPermission("buyer:product:getId")); // 匹配 /buyer/product/{id}
+            SaRouter.match("/buyer/shoppingCart/**").check(r -> StpUtil.checkPermission("buyer:shoppingCart:*"));
+        })).addPathPatterns("/**"); // 拦截所有路径
     }
 
     /**

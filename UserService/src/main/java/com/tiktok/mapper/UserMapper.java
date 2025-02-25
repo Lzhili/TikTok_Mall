@@ -23,4 +23,7 @@ public interface UserMapper {
      */
     @AutoFill(value = OperationType.INSERT)
     void insert(User user);
+
+    @Select("select * from `tiktok-mall`.user where id = #{id}")
+    User getById(Long id);
 }

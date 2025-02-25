@@ -86,4 +86,13 @@ public class UserServiceImpl implements UserService {
         //取得插入数据库后对应的id，返回
         return user.getId();
     }
+
+    @Override
+    public User getById(Long id) {
+        //根据 id 查询用户
+        User user = userMapper.getById(id);
+
+        // 返回实体对象
+        return user;
+    }
 }

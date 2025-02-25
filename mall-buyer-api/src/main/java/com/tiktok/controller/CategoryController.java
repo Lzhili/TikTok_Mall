@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @Tag(name = "分类管理接口", description = "分类相关接口")
-@SaCheckLogin
 @RestController
 @Slf4j
 @RequestMapping(value = "/buyer/category")

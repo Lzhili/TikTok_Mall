@@ -9,4 +9,6 @@ public interface UserService {
     User login(UserLoginDTO userLoginDTO);
 
     Long register(UserRegisterDTO userRegisterDTO);
+
+    User getById(Long id);
 }
