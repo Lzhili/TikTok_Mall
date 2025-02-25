@@ -2,6 +2,7 @@ package com.tiktok.controller;
 
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import com.tiktok.annotation.Log;
 import com.tiktok.dto.OrderPaidDTO;
 import com.tiktok.dto.OrdersSubmitDTO;
 import com.tiktok.result.Result;
@@ -31,6 +32,7 @@ public class OrderController {
      * @param ordersSubmitDTO
      * @return
      */
+    @Log
     @Operation(summary = "用户提交订单")
     @PostMapping("/submit")
     public Result<OrderSubmitVO> submit(@RequestBody OrdersSubmitDTO ordersSubmitDTO) {
@@ -44,6 +46,7 @@ public class OrderController {
      * @param orderPaidDTO
      * @return
      */
+    @Log
     @Operation(summary = "用户标记订单为已支付")
     @PutMapping("/paid")
     public Result markOrderPaid(@RequestBody OrderPaidDTO orderPaidDTO){

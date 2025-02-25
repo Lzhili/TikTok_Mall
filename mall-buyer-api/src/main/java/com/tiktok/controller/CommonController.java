@@ -1,5 +1,6 @@
 package com.tiktok.controller;
 
+import com.tiktok.annotation.Log;
 import com.tiktok.constant.MessageConstant;
 import com.tiktok.result.Result;
 import com.tiktok.utils.AliOssUtil;
@@ -32,6 +33,7 @@ public class CommonController {
      * @param file
      * @return
      */
+    @Log
     @PostMapping("/upload")
     @Operation(summary = "文件上传")
     public Result<String> upload(MultipartFile file){

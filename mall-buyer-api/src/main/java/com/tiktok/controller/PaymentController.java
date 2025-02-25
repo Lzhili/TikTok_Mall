@@ -1,6 +1,7 @@
 package com.tiktok.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import com.tiktok.annotation.Log;
 import com.tiktok.dto.ChargeDTO;
 import com.tiktok.entity.Payment;
 import com.tiktok.result.Result;
@@ -26,6 +27,7 @@ public class PaymentController {
      * @param chargeDTO
      * @return
      */
+    @Log
     @Operation(summary = "用户支付订单")
     @PostMapping("/charge")
     public Result<ChargeVO> charge(@RequestBody ChargeDTO chargeDTO){

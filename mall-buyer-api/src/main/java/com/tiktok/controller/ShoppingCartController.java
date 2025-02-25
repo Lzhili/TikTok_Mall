@@ -1,6 +1,7 @@
 package com.tiktok.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import com.tiktok.annotation.Log;
 import com.tiktok.dto.ShoppingCartDTO;
 import com.tiktok.entity.ShoppingCart;
 import com.tiktok.result.Result;
@@ -27,6 +28,7 @@ public class ShoppingCartController {
      * @param shoppingCartDTO
      * @return
      */
+    @Log
     @Operation(summary = "添加购物车")
     @PostMapping("/add")
     public Result add(@RequestBody ShoppingCartDTO shoppingCartDTO){
@@ -64,6 +66,7 @@ public class ShoppingCartController {
      * 清空购物车列表
      * @return
      */
+    @Log
     @Operation(summary = "清空购物车列表")
     @DeleteMapping("/clean")
     public Result clean(){

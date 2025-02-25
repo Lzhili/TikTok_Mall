@@ -1,6 +1,7 @@
 package com.tiktok.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import com.tiktok.annotation.Log;
 import com.tiktok.dto.AddressBookDTO;
 import com.tiktok.entity.AddressBook;
 import com.tiktok.result.Result;
@@ -52,6 +53,7 @@ public class AddressBookController {
      * @param addressBookDTO
      * @return
      */
+    @Log
     @PostMapping
     @Operation(summary = "当前用户添加一个收货地址")
     public Result<String> addAddress(@RequestBody AddressBookDTO addressBookDTO) {

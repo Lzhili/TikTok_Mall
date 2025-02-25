@@ -1,6 +1,7 @@
 package com.tiktok.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import com.tiktok.annotation.Log;
 import com.tiktok.dto.AddressBookDTO;
 import com.tiktok.dto.ProductDTO;
 import com.tiktok.dto.ProductPageQueryDTO;
@@ -55,6 +56,7 @@ public class ProductController {
      * @param productDTO
      * @return
      */
+    @Log
     @Operation(summary = "增加一个商品")
     @PostMapping
     public Result<String> addOneProduct(@RequestBody ProductDTO productDTO){

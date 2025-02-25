@@ -1,5 +1,6 @@
 package com.tiktok.controller;
 
+import com.tiktok.annotation.Log;
 import com.tiktok.dto.UserLoginDTO;
 import com.tiktok.dto.UserRegisterDTO;
 import com.tiktok.result.Result;
@@ -42,6 +43,7 @@ public class UserController {
      * @param userRegisterDTO
      * @return
      */
+    @Log
     @Operation(summary = "用户注册")
     @PostMapping("/register")
     public Result<UserRegisterVO> register(@RequestBody UserRegisterDTO userRegisterDTO){
