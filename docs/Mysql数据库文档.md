@@ -22,6 +22,11 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`email`, `username`, `password`, `phone`, `sex`, `create_time`, `update_time`) 
 VALUES ('example@example.com', 'exampleUser', 'e10adc3949ba59abbe56e057f20f883e', '13800138000', '男', NOW(), NOW());
 ```
+### 增加角色列（默认角色为 user）
+```
+ALTER TABLE user 
+ADD COLUMN role VARCHAR(20) NOT NULL DEFAULT 'user' COMMENT '角色（user/admin）';
+```
 
 ## （2）分类表
 ### 创建分类表

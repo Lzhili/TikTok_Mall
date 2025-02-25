@@ -25,24 +25,52 @@
 - JDK17 <br>
 - SpringBoot 3.2 <br>
 - Apache Dubbo 3.3 <br>
+- Sa-Token 1.40.0 <br>
 
 ### 配置文件
-在每个服务的 `src/main/resources`目录下，创建配置文件`application-dev.yml`，请根据实际环境调整配置信息
+在每个服务的 `src/main/resources`目录下，创建配置文件`application-dev.yml`，请根据实际环境调整配置信息。下面是示例：
+```
+# spring jackson
+spring:
+  jackson:
+    time-zone: GMT+8
+
+tiktok:
+  datasource: # 数据库mysql信息
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: localhost
+    port: 3306
+    database: tiktok-mall
+    username: root
+    password: 123456
+  redis: #redis配置
+    host: localhost
+    port: 6379
+    password:
+    database: 0
+  dubbo: #dubbo配置
+    registry:
+      address: zookeeper://127.0.0.1:2181 #zookeeper配置
+    protocol:
+      name: tri  # triple协议配置
+      port: 20884 # 协议端口号配置（不同服务的端口号需不同，可以自己设置）
+```
 
 ## 准备工作
-1. 启动zookeeper注册中心服务([详见文档](https://blog.csdn.net/tttzzzqqq2018/article/details/132093374))
+1. 启动 redis。
+2. 启动zookeeper注册中心服务([详见文档](https://blog.csdn.net/tttzzzqqq2018/article/details/132093374))
 ```
 zkServer # 假设已经配好环境变量
 ```
-2. （可选）启动Sentinel控制台，用于服务监控和保护([详见文档](docs/使用Sentinel进行服务保护.md))
+3. （可选）启动Sentinel控制台，用于服务监控和保护([详见文档](docs/使用Sentinel进行服务保护.md))
 ```
 java -Dserver.port=8099 -Dcsp.sentinel.dashboard.server=localhost:8099 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar
 ```
-3. 启动Seata，用于提供分布式事务解决方案([详见文档](docs/Seata提供分布式事务解决方案.md))
+4. 启动Seata，用于提供分布式事务解决方案([详见文档](docs/Seata提供分布式事务解决方案.md))
 ```
 seata-server.bat -p 8091 -h 127.0.0.1 -m file  #在安装目录的bin路径下执行该命令
 ```
-4. 启动RabbitMQ。请先安装RabbitMQ，参考[安装文档](https://blog.csdn.net/qq_39915083/article/details/107034747)，并安装RabbitMQ的延时消息插件<br>
+5. 启动RabbitMQ。请先安装RabbitMQ，参考[安装文档](https://blog.csdn.net/qq_39915083/article/details/107034747)，并安装RabbitMQ的延时消息插件<br>
 ```
 net start RabbitMQ   #以管理员身份启动cmd
 ```
