@@ -23,6 +23,9 @@ spring:
     virtual-host: / # 虚拟主机 virtual hosts，数据隔离
     username: guest # 默认用户名
     password: guest # 默认密码
+  ai:
+    dashscope:
+      api-key: ${tiktok.AI_DASHSCOPE_API_KEY} #Spring Ai Alibaba配置
 
 tiktok:
   jwt:
@@ -32,6 +35,9 @@ tiktok:
     user-ttl: 72000000
     # 设置前端传递过来的令牌名称
     user-token-name: token
+
+server:
+  port: 10887 # tomcat启动端口号
 
 dubbo: #dubbo配置
   registry:

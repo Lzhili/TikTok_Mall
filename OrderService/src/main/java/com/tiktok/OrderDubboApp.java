@@ -11,8 +11,11 @@ import org.apache.dubbo.rpc.AsyncRpcResult;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.client.RestClient;
 
 import java.util.Collections;
 
@@ -56,5 +59,12 @@ public class OrderDubboApp {
                 return AsyncRpcResult.newDefaultAsyncResult(ex.toRuntimeException(), invocation);
             });
         }
+    }
+
+    //Spring ai alibaba 配置
+    @Bean
+    @ConditionalOnMissingBean
+    public RestClient.Builder restClientBuilder() {
+        return RestClient.builder();
     }
 }
