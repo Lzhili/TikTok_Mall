@@ -18,4 +18,6 @@ public interface OrderService {
     Orders getOrderById(Long id);
 
     void cancelOrder(Long orderId);
+
+    Orders getOrderByOrderNo(String orderNumber);
 }

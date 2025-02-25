@@ -43,4 +43,12 @@ public interface OrderMapper {
      * @param orderId
      */
     void cancelOrderById(Long orderId);
+
+    /**
+     * 根据订单号查询订单
+     * @param orderNumber
+     * @return
+     */
+    @Select("select * from `tiktok-mall`.orders where number = #{orderNumber}")
+    Orders getOrderByOrderNo(String orderNumber);
 }

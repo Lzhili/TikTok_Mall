@@ -27,6 +27,7 @@ import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -36,6 +37,7 @@ import java.util.List;
 @Slf4j
 //@Transactional, 加上interfaceClass事务注解才能生效
 @DubboService(interfaceClass = OrderService.class)
+@Service
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
@@ -188,4 +190,15 @@ public class OrderServiceImpl implements OrderService {
     public void cancelOrder(Long orderId) {
         orderMapper.cancelOrderById(orderId);
     }
+
+    /**
+     * 根据订单号查询订单
+     * @param orderNumber
+     * @return
+     */
+    @Override
+    public Orders getOrderByOrderNo(String orderNumber) {
+        return orderMapper.getOrderByOrderNo(orderNumber);
+    }
+
 }
