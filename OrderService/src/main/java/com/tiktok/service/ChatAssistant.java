@@ -1,6 +1,7 @@
 package com.tiktok.service;
 
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
+import com.tiktok.context.BaseContext;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 
 @Service
@@ -24,6 +26,7 @@ public class ChatAssistant {
             "在询问用户之前，请检查消息历史记录以获取订单号等信息，尽量避免重复询问给用户造成困扰。\n" +
             "如果需要，您可以调用相应函数辅助完成。\n" +
             "请讲中文。\n" +
+            "和你对话的用户id是 {user_id}.\n" +
             "今天的日期是 {current_date}.";
 
     private final ChatClient chatClient;
@@ -56,8 +59,11 @@ public class ChatAssistant {
      * ChatClient 简单调用
      */
     public String simpleChat(String query) {
+        Map<String, Object> p = Map.of("current_date", LocalDate.now().toString(), "user_id", BaseContext.getCurrentId());
         return chatClient.prompt(query)
-                .system(s -> s.param("current_date", LocalDate.now().toString()))
+//                .system(s -> s.param("current_date", LocalDate.now().toString()))
+//                .system(s -> s.param("user_id", BaseContext.getCurrentId()))
+                .system(s -> s.params(p))
                 .call().content();
     }
 

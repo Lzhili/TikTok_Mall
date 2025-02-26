@@ -1,6 +1,8 @@
 package com.tiktok.service;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.tiktok.entity.Orders;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +29,18 @@ public class OrdersTools {
 
     //响应
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public record Orders(Long id, String number, Long userId, Long addressBookId, LocalDateTime orderTime, LocalDateTime payTime,
-                         Integer payMethod, BigDecimal amount, Integer isPaid, String username, String email, String addressDetail)  {
+    public record OrdersResponse(Long id, String number, Long userId, Long addressBookId, LocalDateTime orderTime, LocalDateTime payTime,
+                                 Integer payMethod, BigDecimal amount, Integer isPaid, String username, String email, String addressDetail)  {
     }
 
     @Bean
     @Description("根据订单号查询订单")
-    public Function<getOrderRequest, Orders> getOrderByOrderNo() {
+    public Function<getOrderRequest, OrdersResponse> getOrderByOrderNo() {
         logger.info("Function Calling: 根据订单号查询订单");
         return request -> {
             try {
-                com.tiktok.entity.Orders entityOrders = orderService.getOrderByOrderNo(request.orderNumber());
-                return new Orders(
+                Orders entityOrders = orderService.getOrderByOrderNo(request.orderNumber());
+                return new OrdersResponse(
                         entityOrders.getId(),
                         entityOrders.getNumber(),
                         entityOrders.getUserId(),
@@ -55,7 +57,7 @@ public class OrdersTools {
             }
             catch (Exception e) {
                 logger.warn("Orders details: {}", NestedExceptionUtils.getMostSpecificCause(e).getMessage());
-                return new Orders(null, request.orderNumber(),null, null, null, null,
+                return new OrdersResponse(null, request.orderNumber(),null, null, null, null,
                         null, null, null, null, null,null);
             }
         };

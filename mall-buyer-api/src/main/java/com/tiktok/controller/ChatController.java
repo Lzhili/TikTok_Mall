@@ -3,6 +3,7 @@ package com.tiktok.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.tiktok.constant.ChatAiConstant;
+import com.tiktok.context.BaseContext;
 import com.tiktok.result.Result;
 import com.tiktok.utils.HttpClientUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,6 +38,8 @@ public class ChatController {
         Map<String, String> paramMap = new HashMap<>();
         // 添加名为query的参数
         paramMap.put("query", query);
+        // 添加名为userId的参数
+        paramMap.put("userId", String.valueOf(BaseContext.getCurrentId()));
 
         // 调用doGet方法发送请求
         String chatResponse = HttpClientUtil.doGet(url, paramMap);

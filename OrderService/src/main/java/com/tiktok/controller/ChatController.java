@@ -2,6 +2,7 @@ package com.tiktok.controller;
 
 
 import com.tiktok.constant.ChatAiConstant;
+import com.tiktok.context.BaseContext;
 import com.tiktok.service.ChatAssistant;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +28,9 @@ public class ChatController {
      * ChatClient 简单调用
      */
     @GetMapping("/simple/chat")
-    public String simpleChat(@RequestParam(value = "query", defaultValue = ChatAiConstant.DEFAULT_QUERY) String query) {
-        log.info("ChatClient 简单调用 {}", query);
+    public String simpleChat(@RequestParam(value = "query", defaultValue = ChatAiConstant.DEFAULT_QUERY) String query, String userId) {
+        log.info("用户id: {}, ChatClient 简单调用 {}", userId, query);
+        BaseContext.setCurrentId(Long.valueOf(userId)); // 设置当前进程的用户id
         return agent.simpleChat(query);
     }
 
