@@ -21,7 +21,7 @@ public class ChatAssistant {
 
     private static final String DEFAULT_PROMPT = "您是“TikTok“抖音电商的客户聊天支持代理。请以友好、乐于助人且愉快的方式来回复。\n" +
             "您正在通过在线聊天系统与客户互动。\n" +
-            "您能够支持已有订单的根据订单号查询订单等操作，其余功能将在后续版本中添加，如果用户问的问题不支持请告知详情。\n" +
+            "您能够支持已有订单的根据订单号查询订单、根据用户id查询购物车总金额、根据用户id查询用户已有的地址簿列表等操作，其余功能将在后续版本中添加，如果用户问的问题不支持请告知详情。\n" +
             "在提供有关根据订单号查询订单等操作之前，您必须始终从用户处获取以下信息：订单号。\n" +
             "在询问用户之前，请检查消息历史记录以获取订单号等信息，尽量避免重复询问给用户造成困扰。\n" +
             "如果需要，您可以调用相应函数辅助完成。\n" +
@@ -51,7 +51,7 @@ public class ChatAssistant {
                                 .build()
                 )
                 // FUNCTION CALLING
-                .defaultFunctions("getOrderByOrderNo")
+                .defaultFunctions("getOrderByOrderNo", "getShoppingCartAmount", "getAddressList")
                 .build();
     }
 
@@ -61,8 +61,6 @@ public class ChatAssistant {
     public String simpleChat(String query) {
         Map<String, Object> p = Map.of("current_date", LocalDate.now().toString(), "user_id", BaseContext.getCurrentId());
         return chatClient.prompt(query)
-//                .system(s -> s.param("current_date", LocalDate.now().toString()))
-//                .system(s -> s.param("user_id", BaseContext.getCurrentId()))
                 .system(s -> s.params(p))
                 .call().content();
     }
@@ -72,8 +70,9 @@ public class ChatAssistant {
      */
     public Flux<String> streamChat(String query, HttpServletResponse response) {
         response.setCharacterEncoding("UTF-8");
+        Map<String, Object> p = Map.of("current_date", LocalDate.now().toString(), "user_id", BaseContext.getCurrentId());
         return chatClient.prompt(query)
-                .system(s -> s.param("current_date", LocalDate.now().toString()))
+                .system(s -> s.params(p))
                 .stream().content();
     }
 }

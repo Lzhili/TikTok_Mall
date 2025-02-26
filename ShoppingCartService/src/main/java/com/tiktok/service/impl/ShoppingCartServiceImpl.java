@@ -14,6 +14,7 @@ import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -118,4 +119,27 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
         }
         return cartNum;
     }
+
+    /**
+     * 根据userId获取购物车总金额
+     * @param userId
+     * @return
+     */
+    @Override
+    public BigDecimal getAmount(Long userId) {
+        //根据用户id查询购物车
+        ShoppingCart shoppingCart = ShoppingCart.builder()
+                .userId(userId)
+                .build();
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+        BigDecimal cartAmount = BigDecimal.valueOf(0);
+        for(ShoppingCart cart : list){
+            // 将 Integer 类型的 quantity 转换为 BigDecimal 类型
+            BigDecimal quantity = BigDecimal.valueOf(cart.getQuantity());
+            cartAmount = cartAmount.add(quantity.multiply(cart.getAmount()));
+        }
+        return cartAmount;
+    }
+
+
 }

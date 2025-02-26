@@ -1,8 +1,8 @@
 package com.tiktok.service;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.tiktok.entity.AddressBook;
 import com.tiktok.entity.Orders;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import org.springframework.core.NestedExceptionUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.function.Function;
 
 @Configuration
@@ -23,14 +24,28 @@ public class OrdersTools {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private ChatService chatService;
+
     //请求
     public record getOrderRequest(String orderNumber) {
+    }
+
+    public record userIdRequest(Long userId) {
     }
 
     //响应
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public record OrdersResponse(Long id, String number, Long userId, Long addressBookId, LocalDateTime orderTime, LocalDateTime payTime,
                                  Integer payMethod, BigDecimal amount, Integer isPaid, String username, String email, String addressDetail)  {
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public record shoppingCartAmountResponse(BigDecimal amount)  {
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public record addressListResponse(List<AddressBook> addressBookList)  {
     }
 
     @Bean
@@ -62,4 +77,37 @@ public class OrdersTools {
             }
         };
     }
+
+    @Bean
+    @Description("根据用户id查询购物车总金额")
+    public Function<userIdRequest, shoppingCartAmountResponse> getShoppingCartAmount() {
+        logger.info("Function Calling: 根据用户id查询购物车总金额");
+        return request -> {
+            try {
+                BigDecimal amount = chatService.getShoppingCartAmount(request.userId());
+                return new shoppingCartAmountResponse(amount);
+            }
+            catch (Exception e) {
+                logger.warn("shoppingCart Amount: {}", NestedExceptionUtils.getMostSpecificCause(e).getMessage());
+                return new shoppingCartAmountResponse(BigDecimal.valueOf(0));
+            }
+        };
+    }
+
+    @Bean
+    @Description("根据用户id查询用户已有的地址簿列表")
+    public Function<userIdRequest, addressListResponse> getAddressList() {
+        logger.info("Function Calling: 根据用户id查询用户已有的地址簿列表");
+        return request -> {
+            try {
+                List<AddressBook> addressBookList = chatService.getAddressList(request.userId());
+                return new addressListResponse(addressBookList);
+            }
+            catch (Exception e) {
+                logger.warn("addressBook List: {}", NestedExceptionUtils.getMostSpecificCause(e).getMessage());
+                return new addressListResponse(null);
+            }
+        };
+    }
+
 }
