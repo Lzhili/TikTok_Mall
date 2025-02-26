@@ -132,11 +132,11 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
         <!-- Sa-Token 整合 Dubbo -->
-<!--        <dependency>-->
-<!--            <groupId>cn.dev33</groupId>-->
-<!--            <artifactId>sa-token-dubbo</artifactId>-->
-<!--            <version>1.40.0</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-dubbo</artifactId>
+            <version>1.40.0</version>
+        </dependency>
     </dependencies>
 
 </project>

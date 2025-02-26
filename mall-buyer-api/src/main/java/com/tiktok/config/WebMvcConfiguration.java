@@ -63,7 +63,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         registry.addInterceptor(new SaInterceptor(handler -> {
             // 1. 校验是否登录
             SaRouter.match("/buyer/**") // 匹配所有 buyer 路径
-                    .notMatch("/buyer/user/login", "/buyer/user/register", "/buyer/logout", "/buyer/test", "/buyer/product") // 排除白名单
+                    .notMatch("/buyer/user/login", "/buyer/user/register", "/buyer/logout", "/buyer/test") // 排除白名单
                     .check(r -> StpUtil.checkLogin());
 
             if (StpUtil.isLogin()) {
@@ -77,8 +77,13 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
             SaRouter.match("/buyer/category/**").check(r -> StpUtil.checkPermission("buyer:category:*"));
             SaRouter.match("/buyer/order/**").check(r -> StpUtil.checkPermission("buyer:order:*"));
             SaRouter.match("/buyer/payment/**").check(r -> StpUtil.checkPermission("buyer:payment:*"));
+
             SaRouter.match("/buyer/product/page").check(r -> StpUtil.checkPermission("buyer:product:page"));
-            SaRouter.match(SaHttpMethod.GET).match("/buyer/product/{id}").check(r -> StpUtil.checkPermission("buyer:product:getId")); // 匹配 /buyer/product/{id}
+            SaRouter.match(SaHttpMethod.GET).match("/buyer/product/{id}").check(r -> StpUtil.checkPermission("buyer:product:getId")); // 匹配 get, /buyer/product/{id}
+            SaRouter.match(SaHttpMethod.POST).match("/buyer/product").check(r -> StpUtil.checkPermission("buyer:product:addOneProduct")); // 匹配 post, /buyer/product/
+            SaRouter.match(SaHttpMethod.DELETE).match("/buyer/product").check(r -> {StpUtil.checkPermission("buyer:product:deleteBatch");}); // 匹配 delete /buyer/product/
+            SaRouter.match("/common/upload").check(r -> StpUtil.checkPermission("common:upload"));
+
             SaRouter.match("/buyer/shoppingCart/**").check(r -> StpUtil.checkPermission("buyer:shoppingCart:*"));
         })).addPathPatterns("/**"); // 拦截所有路径
     }

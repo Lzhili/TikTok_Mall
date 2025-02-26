@@ -1,5 +1,6 @@
 package com.tiktok.handler;
 
+import cn.dev33.satoken.exception.NotPermissionException;
 import com.tiktok.constant.MessageConstant;
 import com.tiktok.result.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -47,5 +48,4 @@ public class GlobalExceptionHandler {
         log.error("异常信息：{}", error_message);
         return Result.error(error_message);
     }
-
 }

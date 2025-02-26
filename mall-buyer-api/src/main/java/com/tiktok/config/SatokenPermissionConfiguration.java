@@ -30,12 +30,12 @@ public class SatokenPermissionConfiguration implements StpInterface {
         // 普通用户权限
         else if ("user".equals(user.getRole())){
             permissions.add("buyer:addressBook:*");
+            permissions.add("buyer:shoppingCart:*");
             permissions.add("buyer:category:*");
             permissions.add("buyer:order:*");
             permissions.add("buyer:payment:*");
             permissions.add("buyer:product:page");
             permissions.add("buyer:product:getId"); // 匹配 get /buyer/product/{id}
-            permissions.add("buyer:shoppingCart:*");
         }
         return permissions;
     }
