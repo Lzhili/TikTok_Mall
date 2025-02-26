@@ -5,6 +5,7 @@ import com.tiktok.entity.User;
 import com.tiktok.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserMapper {
@@ -26,4 +27,7 @@ public interface UserMapper {
 
     @Select("select * from `tiktok-mall`.user where id = #{id}")
     User getById(Long id);
+
+    @Update("update `tiktok-mall`.user set role = #{role} where id = #{id}")
+    void updateRoleById(Long id, String role);
 }

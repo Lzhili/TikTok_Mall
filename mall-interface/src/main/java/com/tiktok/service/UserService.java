@@ -11,4 +11,6 @@ public interface UserService {
     Long register(UserRegisterDTO userRegisterDTO);
 
     User getById(Long id);
+
+    void updateRoleById(Long id, String role);
 }

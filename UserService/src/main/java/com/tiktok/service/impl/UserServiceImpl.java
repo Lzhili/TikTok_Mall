@@ -95,4 +95,9 @@ public class UserServiceImpl implements UserService {
         // 返回实体对象
         return user;
     }
+
+    @Override
+    public void updateRoleById(Long id, String role) {
+        userMapper.updateRoleById(id, role);
+    }
 }

@@ -1,5 +1,7 @@
 package com.tiktok.controller;
 
+import cn.dev33.satoken.exception.NotPermissionException;
+import cn.dev33.satoken.stp.StpUtil;
 import com.tiktok.annotation.Log;
 import com.tiktok.dto.UserLoginDTO;
 import com.tiktok.dto.UserRegisterDTO;
@@ -11,10 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -63,5 +62,25 @@ public class UserController {
         log.info("用户退出登录");
         userApiService.logout();
         return Result.success();
+    }
+
+    /**
+     *
+     * @param userId
+     * @param newRole
+     * @return
+     */
+    @Operation(summary = "更新用户角色")
+    @PostMapping("/updateRole")
+    public Result<String> updateUserRole(@RequestParam Long userId, @RequestParam String newRole) {
+        // 1. 校验当前用户是否为管理员
+//        if (!StpUtil.hasRole("super-admin")) {
+//            throw new NotPermissionException("无权限操作");
+//        }
+        log.info("更改用户 {} 权限为 {}", userId, newRole);
+
+        userApiService.updateUserRole(userId, newRole);
+
+        return Result.success("角色更新成功");
     }
 }

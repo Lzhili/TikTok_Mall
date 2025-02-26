@@ -4,8 +4,10 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.tiktok.dto.UserLoginDTO;
 import com.tiktok.dto.UserRegisterDTO;
 import com.tiktok.entity.User;
+import com.tiktok.exception.AccountNotFoundException;
 import com.tiktok.vo.UserLoginVO;
 import com.tiktok.vo.UserRegisterVO;
+import javassist.NotFoundException;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
 
@@ -65,5 +67,19 @@ public class UserApiService {
      */
     public void logout() {
         StpUtil.logout(); // 使用 Sa-Token 注销登录
+    }
+
+    public void updateUserRole(Long userId, String newRole) throws AccountNotFoundException {
+        // 判断用户是否存在
+        User user = userService.getById(userId);
+        if (user == null) {
+            throw new AccountNotFoundException("用户不存在");
+        }
+//        user.setRole(newRole);
+        // 更新用户角色
+        userService.updateRoleById(userId, newRole);
+
+        // 3. 清除用户权限缓存
+        StpUtil.getSessionByLoginId(userId).delete("Permission_List");
     }
 }
