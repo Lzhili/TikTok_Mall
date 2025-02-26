@@ -20,4 +20,11 @@
         insert into `tiktok-mall`.product (name, category_id, price, picture, description, create_time, update_time)
         values (#{name}, #{categoryId}, #{price}, #{picture}, #{description}, #{createTime}, #{updateTime})
     </insert>
+
+    <delete id="deleteByIds">
+        delete from `tiktok-mall`.product where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

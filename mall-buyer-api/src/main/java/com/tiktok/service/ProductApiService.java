@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -113,5 +114,18 @@ public class ProductApiService {
             redisTemplate.delete(keys);
             log.info("清理Redis缓存，删除的缓存键：{}", keys);
         }
+    }
+
+    /**
+     * 商品批量删除
+     * @param ids
+     */
+    public void deleteBatch(List<Long> ids) {
+        // 根据id集合批量删除商品数据
+        productService.deleteByIds(ids);
+
+        // 清理与商品分页查询相关的Redis缓存
+        clearProductPageCache();
+        log.info("删除商品后，清理Redis缓存。");
     }
 }

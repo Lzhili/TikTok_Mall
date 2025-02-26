@@ -16,6 +16,8 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @Tag(name = "商品接口", description = "商品接口")
@@ -63,5 +65,17 @@ public class ProductController {
         log.info("增加一个商品");
         productApiService.addOneProduct(productDTO);
         return Result.success("增加商品成功！");
+    }
+
+    /**
+     * 商品批量删除
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    public Result<String> deleteBatch(@RequestParam List<Long> ids) {
+        log.info("商品批量删除：{}", ids);
+        productApiService.deleteBatch(ids);
+        return Result.success("商品删除成功");
     }
 }

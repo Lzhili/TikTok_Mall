@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 //@Transactional, 加上interfaceClass事务注解才能生效
@@ -68,5 +69,10 @@ public class ProductServiceImpl implements ProductService{
         product.setUpdateTime(now);
 
         productMapper.insertOneProduct(product);
+    }
+
+    @Override
+    public void deleteByIds(List<Long> ids) {
+        productMapper.deleteByIds(ids);
     }
 }

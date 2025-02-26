@@ -7,6 +7,8 @@ import com.tiktok.vo.ProductVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface ProductMapper {
 
@@ -30,4 +32,6 @@ public interface ProductMapper {
      * @param product
      */
     void insertOneProduct(Product product);
+
+    void deleteByIds(List<Long> ids);
 }
