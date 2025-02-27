@@ -24,11 +24,22 @@ public class SatokenPermissionConfiguration implements StpInterface {
         List<String> permissions = new ArrayList<>();
 
         // 管理员拥有所有权限
-        if ("admin".equals(user.getRole())) {
+        if ("super-admin".equals(user.getRole())) {
             permissions.add("*"); // 通配符匹配所有接口
-        }
-        // 普通用户权限
-        else if ("user".equals(user.getRole())){
+        } else if ("admin".equals(user.getRole())) {
+            permissions.add("buyer:addressBook:*");
+            permissions.add("buyer:shoppingCart:*");
+            permissions.add("buyer:category:*");
+            permissions.add("buyer:order:*");
+            permissions.add("buyer:payment:*");
+            permissions.add("buyer:product:page");
+            permissions.add("buyer:product:getId"); // 匹配 get /buyer/product/{id}
+
+            // admin 能够增加或删除商品
+            permissions.add("buyer:product:addOneProduct");
+            permissions.add("buyer:product:deleteBatch");
+            permissions.add("common:upload");
+        } else if ("user".equals(user.getRole())){
             permissions.add("buyer:addressBook:*");
             permissions.add("buyer:shoppingCart:*");
             permissions.add("buyer:category:*");

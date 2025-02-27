@@ -77,7 +77,7 @@ public class UserController {
 //        if (!StpUtil.hasRole("super-admin")) {
 //            throw new NotPermissionException("无权限操作");
 //        }
-        log.info("更改用户 {} 权限为 {}", userId, newRole);
+        log.info("更改用户 {} 的角色为 {}", userId, newRole);
 
         userApiService.updateUserRole(userId, newRole);
 

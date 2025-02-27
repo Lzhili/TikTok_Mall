@@ -72,6 +72,8 @@ public class ProductController {
      * @param ids
      * @return
      */
+    @Log
+    @Operation(summary = "批量删除商品")
     @DeleteMapping
     public Result<String> deleteBatch(@RequestParam List<Long> ids) {
         log.info("商品批量删除：{}", ids);

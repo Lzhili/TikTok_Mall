@@ -77,14 +77,18 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
             SaRouter.match("/buyer/category/**").check(r -> StpUtil.checkPermission("buyer:category:*"));
             SaRouter.match("/buyer/order/**").check(r -> StpUtil.checkPermission("buyer:order:*"));
             SaRouter.match("/buyer/payment/**").check(r -> StpUtil.checkPermission("buyer:payment:*"));
+            SaRouter.match("/buyer/shoppingCart/**").check(r -> StpUtil.checkPermission("buyer:shoppingCart:*"));
 
             SaRouter.match("/buyer/product/page").check(r -> StpUtil.checkPermission("buyer:product:page"));
             SaRouter.match(SaHttpMethod.GET).match("/buyer/product/{id}").check(r -> StpUtil.checkPermission("buyer:product:getId")); // 匹配 get, /buyer/product/{id}
+
+//            admin
             SaRouter.match(SaHttpMethod.POST).match("/buyer/product").check(r -> StpUtil.checkPermission("buyer:product:addOneProduct")); // 匹配 post, /buyer/product/
-            SaRouter.match(SaHttpMethod.DELETE).match("/buyer/product").check(r -> {StpUtil.checkPermission("buyer:product:deleteBatch");}); // 匹配 delete /buyer/product/
+            SaRouter.match(SaHttpMethod.DELETE).match("/buyer/product").check(r -> StpUtil.checkPermission("buyer:product:deleteBatch")); // 匹配 delete /buyer/product/
             SaRouter.match("/common/upload").check(r -> StpUtil.checkPermission("common:upload"));
 
-            SaRouter.match("/buyer/shoppingCart/**").check(r -> StpUtil.checkPermission("buyer:shoppingCart:*"));
+//            super admin
+            SaRouter.match("/buyer/user/updateRole").check(r -> StpUtil.checkPermission("buyer:user:updateRole"));
         })).addPathPatterns("/**"); // 拦截所有路径
     }
 
