@@ -23,9 +23,9 @@
 ## 项目配置
 ### 本项目的开发环境
 - JDK17 <br>
-- SpringBoot 3.2 <br>
-- Apache Dubbo 3.3 <br>
-- Sa-Token 1.40.0 <br>
+- SpringBoot 3.2.0 <br>
+- Apache Dubbo 3.2.2 <br>
+- Sa-Token 1.39.0 <br>
 
 ### 配置文件
 在每个服务的 `src/main/resources`目录下，创建配置文件`application-dev.yml`，请根据实际环境调整配置信息。下面是示例：
