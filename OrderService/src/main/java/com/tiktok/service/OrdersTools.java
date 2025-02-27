@@ -1,6 +1,7 @@
 package com.tiktok.service;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.tiktok.dto.OrdersSubmitDTO;
 import com.tiktok.entity.AddressBook;
 import com.tiktok.entity.Orders;
 import org.slf4j.Logger;
@@ -32,6 +33,9 @@ public class OrdersTools {
     }
 
     public record userIdRequest(Long userId) {
+    }
+
+    public record submitOrderRequest(Long userId, Long addressBookId) {
     }
 
     //响应
@@ -110,4 +114,30 @@ public class OrdersTools {
         };
     }
 
+    @Bean
+    @Description("用户下单")
+    public Function<submitOrderRequest, String> submitOrder() {
+        logger.info("Function Calling: 用户下单");
+        return request -> {
+            try {
+                //1.检查用户的购物车是否为空
+                BigDecimal amount = chatService.getShoppingCartAmount(request.userId());
+                if (amount.compareTo(BigDecimal.valueOf(0)) == 0) {
+                    return "用户购物车为空，请先添加商品到购物车！";
+                }
+                //2.检查用户输入的地址id是否存在
+                List<AddressBook> addressBookList = chatService.getAddressList(request.userId());
+                if (addressBookList.isEmpty() || addressBookList.stream().noneMatch(addressBook -> addressBook.getId() == request.addressBookId())){
+                    return "用户输入的地址id不存在或者地址簿为空！";
+                }
+                //3.自动下单
+                orderService.submitOrder(new OrdersSubmitDTO(request.userId(), request.addressBookId(), amount));
+                return "用户下单成功，请尽快去支付！";
+            }
+            catch (Exception e) {
+                logger.warn("submit order: {}", NestedExceptionUtils.getMostSpecificCause(e).getMessage());
+                return "用户下单失败";
+            }
+        };
+    }
 }
