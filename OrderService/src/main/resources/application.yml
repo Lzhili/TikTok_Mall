@@ -46,6 +46,7 @@ dubbo: #dubbo配置
   protocol:
     name: ${tiktok.dubbo.protocol.name} # 协议配置（triple）
     port: ${tiktok.dubbo.protocol.port} # 协议端口号配置
+    serialization: hessian2
   scan:
     base-packages: com.tiktok.service # 扫描后将该包下所有有注解的服务注册到注册中心
   application:

@@ -47,12 +47,13 @@
         <jaxb-api>2.3.1</jaxb-api>
         <commons-pool2>2.12.0</commons-pool2>
 
-        <dubbo-spring-boot>3.3.0</dubbo-spring-boot>
-        <dubbo-protocol-dubbo>3.3.0</dubbo-protocol-dubbo>
-        <dubbo-protocol-triple>3.3.0</dubbo-protocol-triple>
-        <dubbo-registry-zookeeper>3.3.0</dubbo-registry-zookeeper>
+        <dubbo-spring-boot>3.2.2</dubbo-spring-boot>
+        <dubbo-protocol-dubbo>3.2.2</dubbo-protocol-dubbo>
+        <dubbo-protocol-triple>3.2.2</dubbo-protocol-triple>
+        <dubbo-registry-zookeeper>3.2.2</dubbo-registry-zookeeper>
 
-        <sa-token.version>1.40.0</sa-token.version>
+        <sa-token.version>1.39.0</sa-token.version>
+        <zookeeper.version>3.9.1</zookeeper.version>
     </properties>
 
     <dependencyManagement>
@@ -186,6 +187,18 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
                 <version>${commons-pool2}</version>
+            </dependency>
+            <!-- Sa-Token 整合 dubbo3 -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-dubbo3</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+            <!--        指定 zookeeper，不然 jdk17+dubbo3.2.2 会报错，无法连接到 zookeeper-->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper.version}</version>
             </dependency>
 
         </dependencies>

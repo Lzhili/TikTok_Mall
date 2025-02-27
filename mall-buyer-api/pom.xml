@@ -132,11 +132,15 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
         <!-- Sa-Token 整合 Dubbo -->
-<!--        <dependency>-->
-<!--            <groupId>cn.dev33</groupId>-->
-<!--            <artifactId>sa-token-dubbo3</artifactId>-->
-<!--            <version>1.40.0</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-dubbo3</artifactId>
+        </dependency>
+<!--        指定 zookeeper，不然 jdk17+dubbo3.2.2 会报错，无法连接到 zookeeper-->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -1,5 +1,7 @@
 package com.tiktok.service.impl;
 
+import cn.dev33.satoken.stp.SaLoginModel;
+import cn.dev33.satoken.stp.StpUtil;
 import com.tiktok.constant.JwtClaimsConstant;
 import com.tiktok.properties.JwtProperties;
 import com.tiktok.service.AuthService;
@@ -30,5 +32,15 @@ public class AuthServiceImpl implements AuthService {
                 claims);
 
         return token;
+    }
+
+    @Override
+    public void login(Long id) {
+        StpUtil.login(id);
+    }
+
+    @Override
+    public void logout() {
+        StpUtil.logout();
     }
 }

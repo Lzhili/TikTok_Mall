@@ -1,3 +1,5 @@
+server:
+  port: 8081
 spring:
   application:
     name: auth-provider #服务器名称
@@ -34,6 +36,7 @@ dubbo: #dubbo配置
   protocol:
     name: ${tiktok.dubbo.protocol.name} # 协议配置（triple）
     port: ${tiktok.dubbo.protocol.port} # 协议端口号配置
+    serialization: hessian2
   scan:
     base-packages: com.tiktok.service # 扫描后将该包下所有有注解的服务注册到注册中心
   application:
@@ -57,5 +60,25 @@ logging:
     com:
       tiktok:
         mapper: debug
+
+############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
+sa-token:
+  # token 名称（同时也是 cookie 名称）
+  # token-name: token就可以达到类似于jwt的效果，在你的header加上token:token值，就可以达到登录的校验的效果，像jwt一样，完全抛弃了cookie和session
+  token-name: token
+  # token 有效期（单位：秒） 默认30天，-1 代表永久有效
+  timeout: 1800
+  # token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结
+  active-timeout: -1
+  # 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）
+  is-share: true
+  # token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: true
+  # 是否尝试从 cookie 里读取 Token，此值为 false 后，StpUtil.login(id) 登录时也不会再往前端注入Cookie
+  isReadCookie: false
 
 

@@ -10,7 +10,6 @@ import com.tiktok.result.PageResult;
 import com.tiktok.service.ProductService;
 import com.tiktok.vo.ProductVO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.ThreadUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

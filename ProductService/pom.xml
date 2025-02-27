@@ -157,6 +157,11 @@
             <artifactId>mockito-junit-jupiter</artifactId>
         </dependency>
 
+        <!--        指定 zookeeper，不然 jdk17+dubbo3.2.2 会报错，无法连接到 zookeeper-->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
