@@ -23,9 +23,6 @@ public class OrdersTools {
     private static final Logger logger = LoggerFactory.getLogger(OrdersTools.class);
 
     @Autowired
-    private OrderService orderService;
-
-    @Autowired
     private ChatService chatService;
 
     //请求
@@ -40,8 +37,7 @@ public class OrdersTools {
 
     //响应
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public record OrdersResponse(Long id, String number, Long userId, Long addressBookId, LocalDateTime orderTime, LocalDateTime payTime,
-                                 Integer payMethod, BigDecimal amount, Integer isPaid, String username, String email, String addressDetail)  {
+    public record OrdersResponse(Orders order)  {
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -58,26 +54,12 @@ public class OrdersTools {
         logger.info("Function Calling: 根据订单号查询订单");
         return request -> {
             try {
-                Orders entityOrders = orderService.getOrderByOrderNo(request.orderNumber());
-                return new OrdersResponse(
-                        entityOrders.getId(),
-                        entityOrders.getNumber(),
-                        entityOrders.getUserId(),
-                        entityOrders.getAddressBookId(),
-                        entityOrders.getOrderTime(),
-                        entityOrders.getPayTime(),
-                        entityOrders.getPayMethod(),
-                        entityOrders.getAmount(),
-                        entityOrders.getIsPaid(),
-                        entityOrders.getUsername(),
-                        entityOrders.getEmail(),
-                        entityOrders.getAddressDetail()
-                );
+                Orders order = chatService.queryOrderByOrderNo(request.orderNumber());
+                return new OrdersResponse(order);
             }
             catch (Exception e) {
                 logger.warn("Orders details: {}", NestedExceptionUtils.getMostSpecificCause(e).getMessage());
-                return new OrdersResponse(null, request.orderNumber(),null, null, null, null,
-                        null, null, null, null, null,null);
+                return new OrdersResponse(Orders.builder().number(request.orderNumber()).build());
             }
         };
     }
@@ -131,7 +113,7 @@ public class OrdersTools {
                     return "用户输入的地址id不存在或者地址簿为空！";
                 }
                 //3.自动下单
-                orderService.submitOrder(new OrdersSubmitDTO(request.userId(), request.addressBookId(), amount));
+                chatService.autoSubmitOrder(new OrdersSubmitDTO(request.userId(), request.addressBookId(), amount));
                 return "用户下单成功，请尽快去支付！";
             }
             catch (Exception e) {
