@@ -5,11 +5,13 @@ import com.tiktok.dto.UserLoginDTO;
 import com.tiktok.dto.UserRegisterDTO;
 import com.tiktok.entity.User;
 import com.tiktok.exception.AccountNotFoundException;
+import com.tiktok.exception.IllegalRole;
 import com.tiktok.vo.UserLoginVO;
 import com.tiktok.vo.UserRegisterVO;
-import javassist.NotFoundException;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
 
 @Service
 public class UserApiService {
@@ -85,6 +87,11 @@ public class UserApiService {
     }
 
     public void updateUserRole(Long userId, String newRole) throws AccountNotFoundException {
+        // 只能修改角色为 user 或 admin
+        if (!"user".equals(newRole) && !"admin".equals(newRole)) {
+            throw new IllegalRole(MessageFormat.format("newRole: {0} 非法", newRole));
+        }
+
         // 判断用户是否存在
         User user = userService.getById(userId);
         if (user == null) {
