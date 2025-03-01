@@ -1,1 +1,2 @@
 dubboConsumerFilter=com.tiktok.filter.DubboConsumerFilter
+dubboProviderFilter=com.tiktok.filter.DubboProviderFilter
