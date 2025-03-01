@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.common.logger.Logger;
 import org.apache.dubbo.common.logger.LoggerFactory;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.dubbo.rpc.AsyncRpcResult;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,7 +33,7 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 @SpringBootApplication
-//@EnableDubbo
+@EnableDubbo
 @EnableTransactionManagement //开启注解方式的事务管理
 public class ShoppingCartDubboApp {
     public static void main(String[] args) {

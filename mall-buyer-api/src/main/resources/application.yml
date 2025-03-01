@@ -23,7 +23,7 @@ server:
 
 dubbo: #dubbo配置
   consumer:
-    check: true # 启动时检查提供者是否存在，true报错，false忽略
+    check: false # 启动时检查提供者是否存在，true报错，false忽略
   registry:
     address: ${tiktok.dubbo.registry.address} # 注册中心zookeeper配置（默认2181端口）
     group: tiktok_mall_service # 设置zookeeper的根节点，不配置将使用默认的根节点
@@ -108,4 +108,3 @@ sa-token:
   is-log: true
   # 是否尝试从 cookie 里读取 Token，此值为 false 后，StpUtil.login(id) 登录时也不会再往前端注入Cookie
   isReadCookie: false
-

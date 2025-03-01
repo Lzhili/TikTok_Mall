@@ -151,6 +151,31 @@
             <version>1.0.0-M5.1</version>
         </dependency>
 
+<!--        &lt;!&ndash; Sa-token 权限认证框架&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>cn.dev33</groupId>-->
+<!--            <artifactId>sa-token-spring-boot3-starter</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; Sa-Token 整合 Redis （使用 jdk 默认序列化方式） &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>cn.dev33</groupId>-->
+<!--            <artifactId>sa-token-redis</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; 提供Redis连接池 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.commons</groupId>-->
+<!--            <artifactId>commons-pool2</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; Sa-Token 整合 Dubbo &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>cn.dev33</groupId>-->
+<!--            <artifactId>sa-token-dubbo3</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;        指定 zookeeper，不然 jdk17+dubbo3.2.2 会报错，无法连接到 zookeeper&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.zookeeper</groupId>-->
+<!--            <artifactId>zookeeper</artifactId>-->
+<!--        </dependency>-->
 
     </dependencies>
 

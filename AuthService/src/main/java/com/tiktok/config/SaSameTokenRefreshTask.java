@@ -11,10 +11,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 @Slf4j
 @Configuration
 public class SaSameTokenRefreshTask {
-    // 从 0 分钟开始 每隔 1 分钟执行一次 Same-Token
+    // 从 0 分钟开始 每隔 5 分钟执行一次 Same-Token
     @Scheduled(cron = "0 0/1 * * * ? ")
     public void refreshToken(){
-        log.info("AuthService: SameToken refresh");
+        log.info("AuthService: Same-Token refresh");
         SaSameUtil.refreshToken();
     }
 }

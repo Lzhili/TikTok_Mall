@@ -25,8 +25,8 @@ import java.util.UUID;
 @DubboService(interfaceClass = PaymentService.class)
 public class PaymentServiceImpl implements PaymentService {
 
-    @DubboReference
-    private OrderService orderService;
+//    @DubboReference
+//    private OrderService orderService;
 
     @Autowired
     private RabbitTemplate rabbitTemplate;

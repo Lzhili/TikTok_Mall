@@ -7,6 +7,7 @@ import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.tiktok.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.dubbo.rpc.AsyncRpcResult;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +23,7 @@ import java.util.Collections;
 
 @Slf4j
 @SpringBootApplication
-//@EnableDubbo
+@EnableDubbo
 @EnableTransactionManagement //开启注解方式的事务管理
 public class OrderDubboApp {
     public static void main(String[] args) {

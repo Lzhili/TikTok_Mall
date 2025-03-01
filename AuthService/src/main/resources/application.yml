@@ -1,5 +1,5 @@
 server:
-  port: 8051
+  port: 9800
 spring:
   application:
     name: auth-provider #服务器名称
