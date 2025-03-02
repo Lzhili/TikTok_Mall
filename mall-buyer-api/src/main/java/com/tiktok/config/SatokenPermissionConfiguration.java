@@ -27,28 +27,27 @@ public class SatokenPermissionConfiguration implements StpInterface {
         if ("super-admin".equals(user.getRole())) {
             permissions.add("*"); // 通配符匹配所有接口
         } else if ("admin".equals(user.getRole())) {
-            permissions.add("buyer:addressBook:*");
-            permissions.add("buyer:shoppingCart:*");
-            permissions.add("buyer:category:*");
-            permissions.add("buyer:order:*");
-            permissions.add("buyer:payment:*");
-            permissions.add("buyer:product:page");
-            permissions.add("buyer:product:getId"); // 匹配 get /buyer/product/{id}
+            addCommonPermissions(permissions);
 
             // admin 能够增加或删除商品
             permissions.add("buyer:product:addOneProduct");
             permissions.add("buyer:product:deleteBatch");
             permissions.add("common:upload");
         } else if ("user".equals(user.getRole())){
-            permissions.add("buyer:addressBook:*");
-            permissions.add("buyer:shoppingCart:*");
-            permissions.add("buyer:category:*");
-            permissions.add("buyer:order:*");
-            permissions.add("buyer:payment:*");
-            permissions.add("buyer:product:page");
-            permissions.add("buyer:product:getId"); // 匹配 get /buyer/product/{id}
+            addCommonPermissions(permissions);
         }
         return permissions;
+    }
+
+    private void addCommonPermissions(List<String> permissions) {
+        permissions.add("buyer:addressBook:*");
+        permissions.add("buyer:shoppingCart:*");
+        permissions.add("buyer:category:*");
+        permissions.add("buyer:order:*");
+        permissions.add("buyer:payment:*");
+        permissions.add("buyer:product:page");
+        permissions.add("buyer:product:getId"); // 匹配 get /buyer/product/{id}
+        permissions.add("buyer:chatAi");
     }
 
     @Override

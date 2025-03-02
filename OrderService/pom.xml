@@ -151,6 +151,37 @@
             <version>1.0.0-M5.1</version>
         </dependency>
 
+        <!--  单元测试  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--spring-boot-starter-test中不包含junit4,需要单独引入-->
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--   引入mockito,以下2个依赖在spring-boot-starter-test中已包含(4.0.0),
+              所以不需再单独引入     -->
+        <!--    <dependency>-->
+        <!--      <groupId>org.mockito</groupId>-->
+        <!--      <artifactId>mockito-core</artifactId>-->
+        <!--    </dependency>-->
+        <!--mockito配合junit5使用才需要的依赖,junit4不需要引入-->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+        </dependency>
+<!--        Exception in thread "main" java.lang.NoClassDefFoundError: org/junit/platform/launcher/TestIdentifier-->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
         <!-- Sa-token 权限认证框架-->
         <dependency>
             <groupId>cn.dev33</groupId>

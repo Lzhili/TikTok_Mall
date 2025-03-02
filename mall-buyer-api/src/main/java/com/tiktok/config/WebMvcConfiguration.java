@@ -81,6 +81,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
             SaRouter.match("/buyer/product/page").check(r -> StpUtil.checkPermission("buyer:product:page"));
             SaRouter.match(SaHttpMethod.GET).match("/buyer/product/{id}").check(r -> StpUtil.checkPermission("buyer:product:getId")); // 匹配 get, /buyer/product/{id}
+            SaRouter.match("/buyer/chatAi/**").check(r->StpUtil.checkPermission("buyer:chatAi"));
 
 //            admin
             SaRouter.match(SaHttpMethod.POST).match("/buyer/product").check(r -> StpUtil.checkPermission("buyer:product:addOneProduct")); // 匹配 post, /buyer/product/
