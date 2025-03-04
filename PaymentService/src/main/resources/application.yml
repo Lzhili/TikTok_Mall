@@ -1,5 +1,5 @@
 server:
-  port: 9804
+  port: 10014
 spring:
   application:
     name: payment-provider #服务器名称

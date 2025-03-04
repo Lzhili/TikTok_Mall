@@ -1,5 +1,5 @@
 server:
-  port: 9803
+  port: 10013
 spring:
   application:
     name: shoppingCart-provider #服务器名称

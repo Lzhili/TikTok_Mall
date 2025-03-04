@@ -30,4 +30,7 @@ public interface UserMapper {
 
     @Update("update `tiktok-mall`.user set role = #{role} where id = #{id}")
     void updateRoleById(Long id, String role);
+
+    @Select("select role from `tiktok-mall`.user where id = #{id}")
+    String getRoleById(Long id);
 }

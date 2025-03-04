@@ -1,6 +1,8 @@
 package com.tiktok.service;
 
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
+import com.tiktok.config.RoleUpdateEvent;
 import com.tiktok.dto.UserLoginDTO;
 import com.tiktok.dto.UserRegisterDTO;
 import com.tiktok.entity.User;
@@ -9,7 +11,14 @@ import com.tiktok.exception.IllegalRole;
 import com.tiktok.vo.UserLoginVO;
 import com.tiktok.vo.UserRegisterVO;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.text.MessageFormat;
 
@@ -22,6 +31,8 @@ public class UserApiService {
     @DubboReference
     private AuthService authService;
 
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
     /**
      * 用户登录
      * @param userLoginDTO
@@ -37,7 +48,7 @@ public class UserApiService {
         System.out.println("----------- 登录前 ");
         System.out.println("Token值：" + StpUtil.getTokenValue());
         System.out.println("是否登录：" + StpUtil.isLogin());
-        authService.login(user.getId());
+        authService.login(user.getId(), user.getRole());
         System.out.println("----------- 登录后 ");
         System.out.println("Token值：" + StpUtil.getTokenValue());
         System.out.println("是否登录：" + StpUtil.isLogin());
@@ -86,6 +97,7 @@ public class UserApiService {
         System.out.println("是否登录：" + StpUtil.isLogin());
     }
 
+    @Transactional
     public void updateUserRole(Long userId, String newRole) throws AccountNotFoundException {
         // 只能修改角色为 user 或 admin
         if (!"user".equals(newRole) && !"admin".equals(newRole)) {
@@ -97,11 +109,19 @@ public class UserApiService {
         if (user == null) {
             throw new AccountNotFoundException("用户不存在");
         }
-//        user.setRole(newRole);
+
         // 更新用户角色
         userService.updateRoleById(userId, newRole);
 
-        // 3. 清除用户权限缓存
-        StpUtil.getSessionByLoginId(userId).delete("Permission_List");
+        // 4. 更新Redis缓存（需在事务提交后执行）
+        // 获取用户的 SaSession 并更新角色
+//        SaSession accountSession = StpUtil.getSessionByLoginId(userId, false);
+//        if (accountSession != null) {
+//            accountSession.set("role", newRole);
+//            // 手动触发会话更新（确保 Redis 同步）
+//            accountSession.update();
+//        }
+        // 发布事件（触发Redis更新），监听器为 com.tiktok.listener.RoleUpdateEventListener
+        applicationEventPublisher.publishEvent(new RoleUpdateEvent(this, userId, newRole));
     }
 }

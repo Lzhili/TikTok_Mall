@@ -61,7 +61,7 @@
 
 * `com.tiktok.config.SaSameTokenRefreshTask`：定时刷新 Same-Token，保证其高可用。
 
- `mall-buyer-api` 模块（与身份和权限认证相关的代码）
+`mall-buyer-api` 模块（与身份和权限认证相关的代码）
 
 * `com.tiktok.config.SatokenPermissionConfiguration`：利用 Sa-Token 为角色分配权限。
 * `com.tiktok.config.WebMvcConfiguration`：增加拦截器，对用户进行登录校验和权限校验。

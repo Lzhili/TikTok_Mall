@@ -100,4 +100,9 @@ public class UserServiceImpl implements UserService {
     public void updateRoleById(Long id, String role) {
         userMapper.updateRoleById(id, role);
     }
+
+    @Override
+    public String getUserRoleById(Long id) {
+        return userMapper.getRoleById(id);
+    }
 }

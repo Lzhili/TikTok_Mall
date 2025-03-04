@@ -1,12 +1,15 @@
 package com.tiktok.service.impl;
 
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import com.tiktok.constant.JwtClaimsConstant;
 import com.tiktok.properties.JwtProperties;
 import com.tiktok.service.AuthService;
+import com.tiktok.service.UserService;
 import com.tiktok.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,6 +23,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private JwtProperties jwtProperties;
+
+    @DubboReference
+    private UserService userService;
 
     @Override
     public String deliverToken(Long user_id) {
@@ -35,8 +41,11 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void login(Long id) {
+    public void login(Long id, String role) {
         StpUtil.login(id);
+        // 将角色信息存入 Account-Session
+        SaSession accountSession = StpUtil.getSessionByLoginId(id);
+        accountSession.set("role", role);
     }
 
     @Override

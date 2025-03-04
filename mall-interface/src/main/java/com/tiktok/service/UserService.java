@@ -13,4 +13,6 @@ public interface UserService {
     User getById(Long id);
 
     void updateRoleById(Long id, String role);
+
+    String getUserRoleById(Long id);
 }
