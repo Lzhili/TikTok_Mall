@@ -24,9 +24,6 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private JwtProperties jwtProperties;
 
-    @DubboReference
-    private UserService userService;
-
     @Override
     public String deliverToken(Long user_id) {
 
