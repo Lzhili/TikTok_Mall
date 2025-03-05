@@ -1,7 +1,9 @@
 # TikTok_Mall 抖音电商项目
 - 该项目为前后端分离项目的后端部分，前端项目`vue-mall`地址: [传送门](https://github.com/lzzlqwe/vue-mall)<br>
+- 豆包MarsCode青训营-抖音电商项目提交文档：[传送门](https://kcnc0ew47ma2.feishu.cn/docx/M2vsdTLpUoy5Hsx8IQmczAhOnvd?from=from_copylink)
 - 前端主界面效果图如下：<br>
-<br><img src=docs/img/homeView.png width="90%" />
+<br><img src=docs/img/new_homeView.png width="90%" /><br>
+
 
 ## 项目背景
 该项目旨在构建一个基于Java和Dubbo的“简易版”微服务抖音商城系统。通过模块化设计，将不同的业务功能拆分为独立的服务，提升系统的可维护性和扩展性。
@@ -102,11 +104,13 @@ rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 - [中文文档](https://github.com/vran-dev/PrettyZoo/blob/master/README_CN.md)<br>
 - [下载地址](https://github.com/vran-dev/PrettyZoo/releases)<br>
 
-## 其他相关文档
+## 本项目相关技术文档
 - 接口测试文档：[传送门](docs/api接口测试.md)
 - 数据库建表语句：[传送门](docs/Mysql数据库文档.md)
 - 服务保护文档：[传送门](docs/使用Sentinel进行服务保护.md)
 - 分布式事务文档：[传送门](docs/Seata提供分布式事务解决方案.md)
+- 异步调用文档：[传送门](docs/使用RabbitMQ进行异步调用.md)
+- Sa-Token文档：[传送门](docs/Sa-Token%20文档.md)
 
 
 
